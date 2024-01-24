@@ -1,0 +1,36 @@
+hr {
+    width: 100%;
+    margin: 0;
+}
+
+.logo {
+    width: 200px;
+}
+.navbar-expand-lg .navbar-collapse {
+    display: flex!important;
+    flex-basis: auto;
+    justify-content: flex-end;
+}
+
+.navbar {
+    margin: 0 5vw;
+}
+
+.iconos {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+
+i {
+    margin: 10px;
+    font-size: 18px;
+}
+.form-control {
+    width: 200px;
+}
+
+form {
+    display: flex;
+}

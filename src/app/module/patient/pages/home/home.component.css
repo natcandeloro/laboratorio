@@ -1,0 +1,158 @@
+
+.container {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.row {
+    align-items: center;
+    justify-content: center;
+}
+.logos {
+    width: 235px;
+    margin: 25px;
+}
+
+h1 {
+    font-size: 36px;
+    font-family: 'Nunito Sans';
+    font-weight: 100;
+    margin: 2rem;
+}
+
+.figure {
+    width: 150px;
+    display: flex;
+    color: #fff;
+}
+
+figure {
+    position: absolute;
+    top: 59%;
+    left: 50%; 
+    transform: translate(-50%, -50%);
+
+}
+
+.boton-caja{
+    color: #fff;
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.3);
+
+}
+
+button {
+    background-color: rgba(30,115,190,0.62);
+    border-radius: 2px;
+    font-family: 'Poppins';
+    font-weight: 600;
+    font-size: 16px;
+    color: #ffffff;
+    border: none;
+    padding: 10px;
+    margin-bottom: 100px;
+}
+
+h4 {
+    font-family: 'Poppins';
+    margin: 10px;
+    color: #424242;
+}
+
+p {
+    font-family: 'Poppins';
+    font-size: 20px;
+    color: #424242;
+}
+
+.logo {
+    width: 300px;
+}
+.ss-2 {
+    background-image: url("../../../../../assets/statics/caja2.jpg");
+    background-position: center;
+    background-size: cover;
+}
+
+.ss-1 {
+    background-image: url("../../../../../assets//statics/caja1.jpg") ;
+    background-size: cover;
+}
+
+.col-verde::before {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #0a9e00;
+    opacity: 0.6;
+}
+
+.ss-3 {
+    background-image: url("../../../../../assets//statics/caja3.jpg") ;
+    background-size: cover;
+
+}
+
+.col-verde{
+    margin: 15px;
+    width: 300px;
+    height: 340px;
+    position: relative;
+}
+
+/* carousel.component.css */
+.full-width-carousel {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 365px;
+    overflow: hidden;
+    display: flex;
+    align-items: center; 
+    margin-bottom: 2rem;
+  }
+  
+  .full-width-carousel .carousel-inner {
+    width: 100%;
+  }
+  
+  .full-width-carousel img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+
+  .oscura {
+    background: rgba(0, 0, 0, 0.5); /* Color oscuro con opacidad del 50% */
+    z-index: 1;
+  }
+
+.carousel-caption {
+    position: absolute;
+    top: 50%; 
+    left: 50%; 
+    transform: translate(-50%, -50%);
+    text-align: center; 
+    color: #fff;
+    font-family: 'League Spartan';
+    font-size: 26px; 
+    z-index: 2;
+}
+
+.carousel-caption1 {
+    position: absolute;
+    top: 33%; 
+    left: 50%; 
+    transform: translate(-50%, -50%);
+    text-align: center; 
+    color: #fff;
+    font-family: 'League Spartan';
+    font-weight: 300;
+    font-size: 28px; 
+    z-index: 2;
+}

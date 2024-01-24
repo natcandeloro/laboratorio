@@ -1,0 +1,114 @@
+.image-fija {
+  background-image: url('../../../../../assets/statics/contact.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+  height: 25em;
+}
+
+.h1-black {
+  font-family: 'Poppins';
+  font-size: 26px;
+  text-align: center;
+}
+
+.espacio {
+  margin: 3em;
+}
+
+.p-black {
+  font-family: 'Poppins';
+  font-size: 20px;
+  text-align: center;
+}
+
+.center {
+  padding: 4em;
+  text-align: center;
+  color: #fff;
+}
+
+h1 {
+  font-size: 20px
+}
+
+h3{
+  font-size: 18px;
+}
+
+a{
+  text-decoration: none;
+  color: #fff;
+  text-align: center;
+}
+
+.image-fija2 {
+  background-image: linear-gradient(to bottom, rgba(128, 128, 128, 0.6), rgba(128, 128, 128, 0.6))
+, url('../../../../../assets/statics/fija2.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+  height: 25em;
+}
+
+.centrado {
+  display: flex;
+  justify-content: center;
+  margin: 2em;
+}
+
+.image-fija3 {
+  background-image: linear-gradient(to bottom, rgba(255, 0, 0, 0.2), rgba(255, 0, 0, 0.2))
+, url('../../../../../assets/statics/form.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+  height: 35em;
+  text-align: center;
+  color: #fff;
+  padding: 3em;
+}
+/*FORM */
+
+.form-container {
+  display: flex;
+  justify-content: center;
+}
+
+.h1-form {
+  font-size: 30px;
+}
+
+.form{
+  display: flex;  
+  width: 530px;
+  flex-direction: column;
+  padding: 15px 0px;
+  align-items: flex-start;
+}
+.mat-mdc-form-field{
+  width: 100%;
+}
+
+mat-label {
+  font-family: 'Roboto';
+  font-size: 15px;
+}
+
+button {
+  margin-top: 5px;
+  width: 200px;
+  background-color: #3ab724;
+  border: none;
+  color: #fff;
+  padding: 10px;
+}
+
+mat-error { 
+  font-size: 15px;
+  color: #d50000;
+}
+
