@@ -7,7 +7,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LayoutModule } from './module/patient/layout.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
 @NgModule({
     declarations: [
         AppComponent
@@ -22,7 +21,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
         LayoutModule,
         ReactiveFormsModule,
         FormsModule,
-        BrowserAnimationsModule
-    ]
+        BrowserAnimationsModule]
+    
 })
 export class AppModule { }
