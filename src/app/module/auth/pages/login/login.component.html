@@ -1,0 +1,39 @@
+
+<div class="container">
+    <div class="logo">
+        <img src="../../../../../assets/statics/logo principal.png" alt="Logo" width="200">
+    </div>
+    <p ></p>
+
+    <mat-card>
+        <mat-card-header>
+            <mat-card-title>Iniciar sesión</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <form   novalidate>
+                <mat-form-field class="full-width">
+                    <mat-label>DNI</mat-label>
+                    <input class="my-custom-input" id="dni" name="dni" formControlName="dni"
+                        matInput placeholder="Ingrese DNI"  required />
+                    <mat-error>
+                        El DNI es requerido
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="full-width">
+                    <mat-label>Contraseña</mat-label>
+                    <input id="password" name="password" formControlName="password"
+                        matInput placeholder="Ingrese su contraseña" required />
+                    <mat-error >
+                        La contraseña es requerida
+                    </mat-error>
+                </mat-form-field>
+                <div class="button-container">
+                    <button class="btn-primary" mat-raised-button type="submit">Iniciar sesión</button></div>
+                
+           <div class="forgot-password mt-2">
+            <button mat-button routerLink="">Olvidé mi contraseña</button>
+          </div>
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>

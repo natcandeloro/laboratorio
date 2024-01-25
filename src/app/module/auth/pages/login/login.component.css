@@ -1,0 +1,88 @@
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+
+  mat-card{
+    width: 40%;
+  }
+
+  .logo {
+    margin-bottom: 20px;
+  }
+
+  .full-width {
+    width: 100%;
+  }
+
+  .button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  mat-card-title{
+    color: var(--color-secondary);
+    font-weight: 600;
+  }
+
+  .mat-mdc-card{
+    background-color: var(--color-primary);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.6);
+  }
+
+  mat-icon{
+    color: var(--color-primary);
+  }
+  .button-container button{
+    margin: 5px;
+  }
+
+  .btn-primary{
+    font-weight: 500;
+    color: #fff !important;
+    background-color: #1BC375!important;
+    border: #1BC375;
+    padding: 1em;
+  }
+
+   .forgot-password button{
+    font-weight: 500;
+    color:  #1BC375!important;
+    border: #fff;
+    background-color: #fff !important;
+    padding: 1em;
+    
+}
+
+.forgot-password {
+    justify-content: center;
+    display: flex;
+}
+
+p {
+    color: #dc3545;
+    font-size: 20px;
+}
+
+    
+@media (max-width: 480px) {
+    .container {
+    padding: 20px;
+    }
+    
+    .logo img {
+      width: 150px;
+    }
+    
+    .mat-mdc-card {
+      box-shadow: none;
+    }
+    
+    mat-card-title {
+      font-size: 20px;
+    }
+  }

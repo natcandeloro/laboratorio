@@ -26,11 +26,16 @@
 }
 
 .a-over:hover {
-    color: #000;
+    color: #0d47a1;
     text-decoration: none;
 }
 
 a{
     text-decoration: none;
     color: #000;
+}
+
+a:hover{
+    color: #22C579;
+    text-decoration: none;
 }

@@ -4,7 +4,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { PatientModule } from './module/patient/patient.module';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { LayoutModule } from './module/patient/Layout/layout.module';
+import { LayoutModule } from './module/patient/layout.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 

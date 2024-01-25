@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from '../pages/home/home.component';
-import { LayoutComponent } from '../Layout/layout.component';
-import { AsComponent } from '../pages/as/as.component';
-import { ContactComponent } from '../pages/contact/contact.component';
-import { PatientComponent } from '../pages/patient/patient.component';
+import { HomeComponent } from './pages/home/home.component';
+import { LayoutComponent } from './Layout/layout.component';
+import { AsComponent } from './pages/as/as.component';
+import { ContactComponent } from './pages/contact/contact.component';
+import { PatientComponent } from './pages/patient/patient.component';
 
 const routes: Routes = [
   {
