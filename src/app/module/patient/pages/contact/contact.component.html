@@ -21,9 +21,7 @@
 <div class="image-fija3">
   <h1 class="h1-form">Buzón de sugerencias</h1>
   <div class="form-container">
-     <!--
-
-     -->         <form class="form" [formGroup]="registroForm" (ngSubmit)="onSubmit()" @.disabled>
+     <form class="form" [formGroup]="registroForm" (ngSubmit)="onSubmit()">
           <mat-label>Nombre</mat-label>
           <mat-form-field>
               <input matInput formControlName="name" required>
@@ -42,7 +40,9 @@
               <mat-error>El campo es obligatorio</mat-error>
           </mat-form-field>
           <button mat-raised-button color="primary">Enviar</button>
-      </form>
+      </form> <!--
+ 
+     -->       
   </div>
 </div>
 

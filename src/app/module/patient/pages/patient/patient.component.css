@@ -76,3 +76,24 @@ ol, li {
     padding: 3em;
     margin: 3em 0;
 }
+
+.cuadro{
+    margin: 5em;
+}
+
+mat-expansion-panel{
+    background-color: #E8F9F1;
+}
+
+mat-expansion-panel-header{
+    background-color: #4BCF92;
+}
+
+mat-expansion-panel, p, ol, li  {
+    text-align: start;
+    font-size: 16px;
+}
+
+.margin {
+    margin: 1em;
+}

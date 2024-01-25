@@ -3,7 +3,7 @@
 <strong>TE CONTAMOS COMO</strong></h2>
 </div>
 <h1><strong>PREPATATE</strong> </h1>
-<p>Lee tu orden lo mejor que puedas e identifica que preparación necesitas, recorda que estamos para asesorarte.</p>
+<p style="text-align: center;">Lee tu orden lo mejor que puedas e identifica que preparación necesitas, recorda que estamos para asesorarte.</p>
 <div class="gris">
     <img src="../../../../../assets/statics/doc.jpg" class="img-doc" alt="preparación"/>
 </div>
@@ -85,7 +85,7 @@
 <ol style="font-size: 18px;"><strong>-Primero sácale una foto nítida a tu orden para nosotros podamos leer con mayor facilidad</strong> </ol>
 <ol style="font-size: 18px;"><strong >-Segundo has click en este <a href="https://wa.me/5492616529790" target="_blank">botón</a> que te llevara  a chatear por WhatsApp directamente con nosotros, envía tu foto y listo en unos minutos te estaremos enviando la cotización por ese mismo medio</strong></ol>
 </div>
-<div style="margin: 2em;">
+<div style="margin: 1em 5em;">
 <h1 style="color: #339966;"><strong>PREPARACIONES</strong> </h1>
 <h1>¿Sabes leer tu orden de lo que te pidieron?</h1>
 <h4><strong>Excelente te dejamos algunas de las preparaciones más importantes y las recurrentes en la solicitud de análisis</strong> </h4>
@@ -96,7 +96,121 @@
 <li>Se aceptan órdenes médicas en formato electrónico y no es necesario imprimirlas.</li>
 </div>
 
-<div class="cuadro">
+    <div class="cuadro">
+        <mat-accordion>
+            <mat-expansion-panel (opened)="panelOpenState = true"
+                                (closed)="panelOpenState = false">
+            <mat-expansion-panel-header>
+                <mat-panel-title>ANÁLISIS SIN COLESTEROL</mat-panel-title>
+            </mat-expansion-panel-header>
+            <p>–Realizar una cena liviana: que conste de infusión y galletas de agua (5 unidades) si usted es diabético: una cena que conste de pechuga de pollo y ensaladas verde 8hs de ayuno previo a ala extracción no tomar medicación de tiroides antes de la extracción.</p>
+            </mat-expansion-panel>
+            <mat-expansion-panel (opened)="panelOpenState = true"
+            (closed)="panelOpenState = false">
+    <mat-expansion-panel-header>
+    <mat-panel-title>ANÁLISIS CON COLESTEROL</mat-panel-title>
+    </mat-expansion-panel-header>
+    <p>-Realizar cena liviana: que conste de infusión y galletas de agua (5 unidades) 10 a 12hs de ayuno previo a la extracción si usted es diabético: una cena que conste de pechuga de pollo y ensaladas verde diabético entre 9hs de ayuno previo a la extracción.
+        No tomar medicación de tiroides antes de la extracción.</p>
+    </mat-expansion-panel>
+    <mat-expansion-panel (opened)="panelOpenState = true"
+                                (closed)="panelOpenState = false">
+            <mat-expansion-panel-header>
+                <mat-panel-title> HORMONAS </mat-panel-title>
+            </mat-expansion-panel-header>
+            <p><strong>Horario ideal realizar la extracción de sangre para hormonas es entre las 7.30 a 8.30 am</strong> </p>
+                <li>Pacientes femeninos se recomienda realizar entre el 1er y el 4to día del ciclo (1er día del ciclo entiéndase como primer día de sangrado)</li>
+                <li>8hs de ayuno previo</li>
+                <li>No tomar medicación de tiroides u hormonas a menos que el medico indique lo contrario</li>
+                <li>Anticonceptivos se puede tomar.</li>
+                <li>No tomar medicación de tiroides antes de la extracción</li>
+            </mat-expansion-panel>
+            <mat-expansion-panel (opened)="panelOpenState = true"
+                                (closed)="panelOpenState = false">
+            <mat-expansion-panel-header>
+                <mat-panel-title> ANÁLSIS DE PROSTATA PSA </mat-panel-title>
+            </mat-expansion-panel-header>
+            <p><strong>Se recomienda 48 hs antes evitar:</strong></p>
+            <li>Relaciones sexuales</li>
+            <li>Ejercicios como andar en bici, correr, montar caballo u otro tipo de actividades en las que les puedas hacer masaje a tu próstata.</li>
+            </mat-expansion-panel>
+            <mat-expansion-panel (opened)="panelOpenState = true"
+                                (closed)="panelOpenState = false">
+            <mat-expansion-panel-header>
+                <mat-panel-title> TENGO ORINA DE 24 HS </mat-panel-title>
+            </mat-expansion-panel-header>
+            <p><strong>En un recipiente (se aconseja un bidón) limpiarlo con agua solamente y dejarlo secar.</strong></p>
+            <p style="color:#008080"><strong>1er día de recolección: ejemplo DOMINGO</strong> </p>
+            <li>Se levanta por la mañana y descarta el total de la primera orina</li>
+            <li>A partir de entonces recolectara todas las Orinas que haga en el día en ese recipiente</li>
+            <li>Si en la noche va a al baño también debe recolectar las orinas.</li>
+            <p style="color:#008080"><strong>2do día de recolección: ejemplo LUNES</strong> </p>
+            <li>Recolectar el total de la primera orina de la mañana y venir al laboratorio</li>
+            <li>Traer anotado el peso y altura</li>
+            </mat-expansion-panel>
+            <mat-expansion-panel (opened)="panelOpenState = true"
+            (closed)="panelOpenState = false">
+<mat-expansion-panel-header>
+<mat-panel-title> MATERIA FECAL </mat-panel-title>
+</mat-expansion-panel-header>
+<p><strong>TEST DE GRAHAM</strong></p>
+<ol>1-Higienizar la zona peri anal a la noche antes de acostarse.</ol>
+<ol>2-No aplicar pomadas o polvos-talco en la región después de higienizar.</ol>
+<ol>3-En la mañana al levantarse y antes de ir al baño, con una un hisopo apenas húmedo (no mojado)dar toques/ fregar en la zona peri anal.</ol>
+<ol>4-Colocar el hisopo / gasa en un frasco seco.</ol>
+<ol>5-Repetir la maniobra durante 5 días consecutivos.</ol>
+<p>FRASCO SECO DE ORINA, PUEDE USAR COTONETES O PEQUEÑAS GASAS (5 MUESTRAS EN UN FRASCO)</p>
+<hr/>
+<p><strong>PARASITOLOGICO SERIADO DE MATERIA FECAL</strong></p>
+<li>1-Recolectar 5 muestras de materia fecal, (1 por día durante 5 días consecutivos).</li>
+<li>2-El tamaño muestras: Media cucharadita de las de café.</li>
+<li>3-No tomar purgantes ni compuestos con bismuto, bario carbón, 72 hs antes de comenzar la recolección y hasta terminar la misma.</li>
+<li>4-El recipiente se mantiene en lugar fresco y seco fuera de la heladera.</li>
+<p>DEBE RECOLECTAR EN FRASCO DE FORMOL, 5 MUESTRAS EN 1 FRASCO (A DISPOSICIO DE VENTA EN EL LABORATORIO)</p>
+<hr/>
+<p><strong>SANGRE OCULTA EN MATERIA FECAL</strong></p>
+<p>Durante 48 hs</p>
+<li>No Ingerir alcohol, aspirinas ni medicamentos que contengan hierro.</li>
+<li>En caso de constipación, puede ingerirse yogurt o jugo de compota colado.</li>
+<li>Evitar: laxantes, carbón o supositorios.</li>
+<li>Al tercer día recolectar una muestra de materia fecal en un recipiente seco (sin formol)</li>
+<p>El tamaño de la muestra es de una cucharadita de la de café.</p>
+</mat-expansion-panel>
+<mat-expansion-panel (opened)="panelOpenState = true"
+(closed)="panelOpenState = false">
+<mat-expansion-panel-header>
+<mat-panel-title> CULTIVO DE ORINA </mat-panel-title>
+</mat-expansion-panel-header>
+<ol>1-Adquirir un recipiente estéril para orina (SIN EXCEPCIÓN).</ol>
+<ol>2-Recolectar la orina después de 3 hs retención como mínimo (preferentemente durante la primera micción de la mañana).</ol>
+<ol>3-<strong>MUJERES:</strong>  Antes de la recolección lavar bien los genitales externos (vulva y labios) con agua y jabón, y sobre todo el meato uretral de adelante hacia atrás. (de vulva hacia atrás no)</ol>
+<ol>4-<strong>VARONES:</strong>  Antes de la recolección lavar muy bien con agua y jabón correr el prepucio e higienizar muy bien el glande.</ol>
+<ol>5-Enjuagar y secar con toalla limpia (puede ser de papel).</ol>
+<ol>6-Separar los labios genitales y comenzar a orinar eliminando los primeros 2 segundos y luego seguir orinando dentro del recipiente estéril.</ol>
+<ol>7-Llenar hasta la mitad del frasco. Tapar verificando que le cierre sea correcto.</ol>
+<ol>7-Llenar hasta la mitad del frasco. Tapar verificando que le cierre sea correcto.</ol>
 
-      
+
+</mat-expansion-panel>
+<mat-expansion-panel (opened)="panelOpenState = true"
+                                (closed)="panelOpenState = false">
+            <mat-expansion-panel-header>
+                <mat-panel-title>NIÑOS Y NIÑAS</mat-panel-title>
+            </mat-expansion-panel-header>
+            <p>¡Atención! es de suma transcendencia para nuestros pequeños que sean advertidos con antelación el procedimiento que va a realizar que es la extracción de sangre.</p>
+    <p>Ayudamos a ellos puedan tomar conciencia de sus capacidades, su valentía y que van a tener apoyo de sus mayores.</p>
+    <li>No engañarlo ni transmitirle ninguna experiencia negativa.</li>
+    <li>No insistir con la información si el chico no pregunta.</li>
+    <li>Es importante aclarar para qué se realiza el estudio y por qué</li>
+    <li>No olvidar remarcar que recibirá una leve y breve punción que le va a doler un poco.</li>
+    <li>Destacar la necesidad de mantener inmóvil el brazo durante la misma.</li>
+            </mat-expansion-panel>
+        </mat-accordion>
 </div>
+
+<h1 style="color:#008080" class="margin"><strong>ESTAS MAS QUE LISTO/A PARA VENIR NUESTROS HORARIOS DE EXTRACCIÓN:</strong> </h1>
+<h1 class="margin"><strong>HORARIOS</strong> </h1> 
+<h1 class="margin">LUNES A VIERNES DE 7 A 10 AM O SÁBADOS DE 07:30 A 10 SIN TURNO PREVIO </h1>
+<h1 class="margin"><strong> HORARIOS DE ATENCIÓN DE SECRETARIA:</strong></h1>
+<h1 class="margin">LUNES A VIERNES DE 7 A 13 Y 15 A 18.30 HS</h1>
+<h1 class="margin" style="font-style: italic;"><strong>NO TE DEJES ESTAR ES IMPORTANTE RELIZAR LOS CONTROLES DE TU DIAGNOSTICO.</strong> </h1>
