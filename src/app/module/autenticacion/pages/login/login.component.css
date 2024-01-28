@@ -64,11 +64,19 @@
 }
 
 p {
-    color: #dc3545;
+  text-align: center;
+  margin: 1em;
+    color: #7a7a7a;
     font-size: 20px;
 }
 
-    
+.btn-info{
+  margin: 1em 5em;
+  padding: 1em;
+  background-color: #1BC375;
+  border: #1BC375;
+  color: #fff;
+}
 @media (max-width: 480px) {
     .container {
     padding: 20px;

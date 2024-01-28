@@ -8,7 +8,7 @@ const routes: Routes = [
   },
   {
     path: 'auth', //TODO: localHost:4200/auth
-    loadChildren: () => import('./module/auth/auth.module').then(m => m.AuthModule)
+    loadChildren: () => import('./module/autenticacion/auth.module').then(m => m.AuthModule)
   },
   {
     path: 'admin', //TODO: localHost:4200/admin

@@ -1,22 +1,20 @@
-
 <div class="container">
     <div class="logo">
         <img src="../../../../../assets/statics/logo principal.png" alt="Logo" width="200">
     </div>
-    <p ></p>
-
     <mat-card>
+        <p>Login para el panel de control</p>
         <mat-card-header>
             <mat-card-title>Iniciar sesión</mat-card-title>
         </mat-card-header>
         <mat-card-content>
-            <form   novalidate>
+            <form [formGroup]="formlogin" (ngSubmit)="onSubmit()" novalidate>
                 <mat-form-field class="full-width">
-                    <mat-label>DNI</mat-label>
-                    <input class="my-custom-input" id="dni" name="dni" formControlName="dni"
-                        matInput placeholder="Ingrese DNI"  required />
+                    <mat-label>Usuario</mat-label>
+                    <input class="my-custom-input" id="usuario" name="usuario" formControlName="usuario"
+                        matInput placeholder="Ingrese su usuario" required />
                     <mat-error>
-                        El DNI es requerido
+                        El usuario es requerido
                     </mat-error>
                 </mat-form-field>
                 <mat-form-field class="full-width">
@@ -31,7 +29,7 @@
                     <button class="btn-primary" mat-raised-button type="submit">Iniciar sesión</button></div>
                 
            <div class="forgot-password mt-2">
-            <button mat-button routerLink="">Olvidé mi contraseña</button>
+            <button mat-button >Olvidé mi contraseña</button>
           </div>
             </form>
         </mat-card-content>
