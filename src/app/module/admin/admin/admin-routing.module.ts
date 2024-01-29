@@ -9,7 +9,7 @@ const routes: Routes = [
   {
     path: 'panel',
     component: AdminComponent,
-    canActivate: [canActivate(() => redirectUnauthorizedTo(['/auth/login']))]
+   // canActivate: [canActivate(() => redirectUnauthorizedTo(['/auth/login']))]
   },
   
  
