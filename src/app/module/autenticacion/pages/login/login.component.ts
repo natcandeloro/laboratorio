@@ -24,12 +24,8 @@ export class LoginComponent {
 console.log(response);
 this.router.navigate(['/admin/panel']);
     })
-    .catch(error=> console.log(error)
+    .catch(error=> 
+      alert("Error al loguearse: " + error )
     )
   }
-
-
-
-
-  
 }

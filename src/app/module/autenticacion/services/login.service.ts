@@ -7,6 +7,7 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
   providedIn: 'root',
 
 })
+
 export class LoginService {
 
   
@@ -17,6 +18,8 @@ export class LoginService {
   }
 
   logout(){
-    return this.afAuth.signOut
+    return this.afAuth.signOut(); 
   }
+
+ 
 }

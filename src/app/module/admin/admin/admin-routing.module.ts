@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { AdminComponent } from './admin.component';
 import { RouterModule, Routes } from '@angular/router';
 import { canActivate, redirectUnauthorizedTo } from '@angular/fire/auth-guard'; 
+import { GuardService } from '../service/guard.service';
 
 
 const routes: Routes = [ 
@@ -9,7 +10,7 @@ const routes: Routes = [
   {
     path: 'panel',
     component: AdminComponent,
-   // canActivate: [canActivate(() => redirectUnauthorizedTo(['/auth/login']))]
+    canActivate: [GuardService]
   },
   
  
