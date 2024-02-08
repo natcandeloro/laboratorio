@@ -1,15 +1,20 @@
 import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import { LoginService } from '../../autenticacion/services/login.service';
 import { Router } from '@angular/router';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatTableDataSource} from '@angular/material/table';
+interface Valor {
+  position: number;
+  nombre: string;
+  dni: number;
+  file: string;
+  date: string;
+}
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.css'],
 
 })
-export class AdminComponent implements AfterViewInit {
+export class AdminComponent {
 
   constructor ( private loginService: LoginService,
     private router: Router){ }
@@ -20,29 +25,50 @@ export class AdminComponent implements AfterViewInit {
     );
   }
 
-  displayedColumns: string[] = ['position', 'name', 'dni', 'file', 'actions'];
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
+valores: Valor[] = [
+  {position: 1, nombre: 'Juan Gonzalez', dni: 32654654, date: '04/02/2024', file: 'pepe.pdf'},
+  {position: 2, nombre: 'Pablo Perez', dni: 32654654, date: '',file: 'pepe.pdf' },
+  {position: 3, nombre: 'Alex Perez', dni: 32654654, date: '',file: 'pepe.pdf' },
+  {position: 4, nombre: 'Beryllium', dni: 32654654, date: '',file: 'pepe.pdf'},
+  {position: 5, nombre: 'Boron', dni: 32654654, date: '',file: 'pepe.pdf'},
+  {position: 6, nombre: 'Hydrogen', dni: 32654654, date: '',file: 'pepe.pdf'},
+  {position: 7, nombre: 'Helium', dni: 32654654, date: '', file: 'pepe.pdf' },
+  {position: 8, nombre: 'Lithium', dni: 32654654, date: '',file: 'pepe.pdf' },
+  {position: 9, nombre: 'Beryllium', dni: 32654654, date: '', file: 'pepe.pdf'},
+  {position: 10, nombre: 'Boron', dni: 32654654, date: '',file: 'pepe.pdf'},
+  {position: 11, nombre: 'Hydrogen', dni: 32654654, date: '',file: 'pepe.pdf'},
+  {position: 12, nombre: 'Helium', dni: 32654654, date: '',file: 'pepe.pdf' },
+  {position: 13, nombre: 'Lithium', dni: 32654654, date: '',file: 'pepe.pdf' },
+  {position: 14, nombre: 'Beryllium', dni: 32654654, date: '',file: 'pepe.pdf'},
+  {position: 15, nombre: 'Boron', dni: 32654654, date: '',file: 'pepe.pdf'},
+];
 
-  ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
+pageSize = 10;
+currentPage = 0;
+
+get paginatedValores(): Valor[] {
+  const startIndex = this.currentPage * this.pageSize;
+  return this.valores.slice(startIndex, startIndex + this.pageSize);
+}
+
+/*  MODAL */
+modalVisible = false;
+  toggleModal() {
+    this.modalVisible = !this.modalVisible;
+  }
+  closeModal() {
+    this.modalVisible = false;
+  }
+ /* MODAL EDIT */ 
+  modalVisibleEdit = false;
+
+  toggleModalEdit() {
+    this.modalVisibleEdit = !this.modalVisibleEdit;
+  }
+  closeModalEdit() {
+    this.modalVisibleEdit = false;
   }
 }
 
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  file: number;
-  dni: number;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', dni: 32654654, file: 1.0079},
-  {position: 2, name: 'Helium', dni: 32654654, file: 4.0026 },
-  {position: 3, name: 'Lithium', dni: 32654654, file: 6.941 },
-  {position: 4, name: 'Beryllium', dni: 32654654, file: 9.0122},
-  {position: 5, name: 'Boron', dni: 32654654,file: 10.811},
-
-];
 

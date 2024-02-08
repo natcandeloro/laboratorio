@@ -10,12 +10,15 @@ import { LoginService } from '../autenticacion/services/login.service';
 import { environment } from 'src/environments/environment';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MaterialModule } from '../material/material.module';
-import { MatTableModule } from '@angular/material/table';
+import { ModalComponent } from './modal/modal.component';
+import { ModalEditComponent } from './modal-edit/modal-edit.component';
 
 
 @NgModule({
   declarations: [
     AdminComponent,
+    ModalComponent,
+    ModalEditComponent,
   ],
   imports: [
     CommonModule,
@@ -24,7 +27,6 @@ import { MatTableModule } from '@angular/material/table';
     AngularFireAuthModule,  
     MatPaginatorModule,
     MaterialModule,
-    MatTableModule
   ],
   providers: [ AngularFireAuth, AuthGuard, LoginService], 
 })

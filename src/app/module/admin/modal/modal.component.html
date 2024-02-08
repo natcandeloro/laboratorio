@@ -1,0 +1,41 @@
+<div class="modal">
+    <div class="modal-content">
+        <button class="close-btn" (click)="closeModal()"><i class="fa-regular fa-circle-xmark"></i></button>
+        <form>
+        <mat-form-field class="full-width">
+            <mat-label>Nombre paciente</mat-label>
+            <input class="my-custom-input" id="name" name="name" formControlName="name"
+                matInput placeholder="Ingrese nombre del paciente" required />
+            <mat-error>
+                El nombre es requerido
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field class="full-width">
+        <mat-label>DNI del paciente</mat-label>
+        <input class="my-custom-input" id="dni" name="dni" formControlName="dni"
+            matInput placeholder="Ingrese DNI del paciente" required />
+        <mat-error>
+            El DNI es requerido
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field class="full-width">
+        <mat-label>Ingresar fecha de extracción</mat-label>
+        <input matInput [matDatepicker]="picker">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker class="custom-datepicker"></mat-datepicker>
+
+      </mat-form-field>
+    <mat-form-field class="full-width">
+        <mat-label>Archivo</mat-label>
+        <input class="my-custom-input" id="file" name="file"  formControlName="file"
+            matInput placeholder="Suba archivo" required />
+        <mat-error>
+            El archivo es requerido
+        </mat-error>
+    </mat-form-field>
+    <button class="btn-info">Subir</button>
+        </form>
+        </div>
+    </div>
+    
