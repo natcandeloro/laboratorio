@@ -1,0 +1,36 @@
+.containere {
+    display: flex;
+    align-items: center;
+    align-content: center;
+    flex-direction: column;
+    justify-content: center;
+    height: 75vh;
+    background-image: linear-gradient(to bottom, rgba(0, 0, 255, 0.2), rgba(0, 0, 255, 0.2)), url('../../../../../assets/statics/female-scientist-in-the-lab-with-notepad-scaled.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+button {
+    margin: 0 3em 3em 3em;
+    padding: 1em;
+    border-radius: 10px;
+}
+
+h1 {
+    text-align: center;
+    margin: 1em;
+}
+
+.card {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.6);
+    width: 35em;
+    height: 20em;
+}

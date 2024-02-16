@@ -1,10 +1,16 @@
 import { Component, ViewChild, AfterViewInit } from '@angular/core';
 import { LoginService } from '../../autenticacion/services/login.service';
 import { Router } from '@angular/router';
-interface Valor {
-  position: number;
+import { PanelService } from '../service/panel.service';
+import { Storage, ref, uploadBytes, listAll, getDownloadURL } from '@angular/fire/storage';
+import { Observable, first, map } from 'rxjs';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
+import { FieldValue, QueryDocumentSnapshot } from '@angular/fire/firestore';
+
+interface Paciente {
+  id: number;
   nombre: string;
-  dni: number;
+  DNI: number;
   file: string;
   date: string;
 }
@@ -15,9 +21,63 @@ interface Valor {
 
 })
 export class AdminComponent {
+  pacientes: any[] = [];
+  documentos$!: Observable<any[]>;
+  documentos: any[] = []; 
+  documentosSubscription: any;
+  documentoId!: string;
+
 
   constructor ( private loginService: LoginService,
-    private router: Router){ }
+                private panelService: PanelService,
+                private router: Router,
+                private storage: Storage,
+                private firestore: AngularFirestore
+                ){ 
+                  this.documentos$ = this.firestore.collection('pacientes').snapshotChanges()
+                  .pipe(
+                    map(documentos => {
+                      return documentos.map(documento => {
+                        console.log('Documento:', documento);
+                        const id = documento.payload.doc.id;
+                        const data = documento.payload.doc.data();
+                        console.log('ID:', id);
+                        console.log('Datos:', data);
+                        if (!id || !data) {
+                          console.error('Documento no tiene el formato esperado:', documento);
+                          return null; 
+                        }
+                        return { id, ...data };
+                      }).filter(documento => documento !== null); 
+                    })
+                  );
+                }
+
+
+    ngOnInit(): void {
+    this.documentos$ = this.panelService.obtenerDatos();
+
+   this.documentos$.subscribe(documentos => {
+        console.log('Documentos recibidos:', documentos);
+      });
+    //  this.getDocs();
+    }
+
+    eliminarPaciente(id: string) {
+      console.log(id)
+      this.firestore.collection('pacientes').doc(id).delete()
+        .then(() => {
+          console.log('Documento eliminado correctamente');
+        })
+        .catch(error => {
+          console.error('Error al eliminar documento:', error);
+        });
+    }
+
+    ngOnDestroy(): void {
+      this.documentosSubscription.unsubscribe();
+    }
+
   async onClick(): Promise<void> {
     await this.loginService.logout();
     this.router.navigate(['/auth/login'])
@@ -25,31 +85,38 @@ export class AdminComponent {
     );
   }
 
+  obtenerPacientes() {
+    this.panelService.obtenerDatos().subscribe(datos => {
+      
+      console.log('Datos obtenidos:', datos);
+    });
+    
+  }
+  
 
-valores: Valor[] = [
-  {position: 1, nombre: 'Juan Gonzalez', dni: 32654654, date: '04/02/2024', file: 'pepe.pdf'},
-  {position: 2, nombre: 'Pablo Perez', dni: 32654654, date: '',file: 'pepe.pdf' },
-  {position: 3, nombre: 'Alex Perez', dni: 32654654, date: '',file: 'pepe.pdf' },
-  {position: 4, nombre: 'Beryllium', dni: 32654654, date: '',file: 'pepe.pdf'},
-  {position: 5, nombre: 'Boron', dni: 32654654, date: '',file: 'pepe.pdf'},
-  {position: 6, nombre: 'Hydrogen', dni: 32654654, date: '',file: 'pepe.pdf'},
-  {position: 7, nombre: 'Helium', dni: 32654654, date: '', file: 'pepe.pdf' },
-  {position: 8, nombre: 'Lithium', dni: 32654654, date: '',file: 'pepe.pdf' },
-  {position: 9, nombre: 'Beryllium', dni: 32654654, date: '', file: 'pepe.pdf'},
-  {position: 10, nombre: 'Boron', dni: 32654654, date: '',file: 'pepe.pdf'},
-  {position: 11, nombre: 'Hydrogen', dni: 32654654, date: '',file: 'pepe.pdf'},
-  {position: 12, nombre: 'Helium', dni: 32654654, date: '',file: 'pepe.pdf' },
-  {position: 13, nombre: 'Lithium', dni: 32654654, date: '',file: 'pepe.pdf' },
-  {position: 14, nombre: 'Beryllium', dni: 32654654, date: '',file: 'pepe.pdf'},
-  {position: 15, nombre: 'Boron', dni: 32654654, date: '',file: 'pepe.pdf'},
-];
+  getDocs(){
+    const docsRef = ref(this.storage, 'pacientesdocs')
+
+    listAll(docsRef)
+    .then(async response => {
+      console.log(response)
+      for (let item of response.items) {
+        const url = await getDownloadURL(item);
+        console.log(url);
+      }
+    })
+    .catch(error => 
+      alert("Error al loguearse: " + error ),
+      )
+  }
+  
 
 pageSize = 10;
 currentPage = 0;
 
-get paginatedValores(): Valor[] {
+get paginatedValores(): Paciente[] {
   const startIndex = this.currentPage * this.pageSize;
-  return this.valores.slice(startIndex, startIndex + this.pageSize);
+  return this.pacientes.slice(startIndex, startIndex + this.pageSize);
 }
 
 /*  MODAL */

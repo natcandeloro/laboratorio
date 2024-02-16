@@ -1,0 +1,15 @@
+
+<div class="containere">
+    <div class="card">
+        <h1>Descargar estudios</h1>
+        <form [formGroup]="formGroup" (ngSubmit)="descargarArchivo()" >
+          <mat-form-field class="full-width">
+            <mat-label>DNI</mat-label>
+            <input formControlName="dni" type="text" placeholder="Ingrese DNI" required matInput>
+            <mat-error >El campo debe contener 8 caracteres. </mat-error>
+        </mat-form-field>
+  <button type="submit" [disabled]="formGroup.invalid">Descargar archivo</button>
+
+  </form>
+
+</div>

@@ -12,6 +12,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MaterialModule } from '../material/material.module';
 import { ModalComponent } from './modal/modal.component';
 import { ModalEditComponent } from './modal-edit/modal-edit.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import { ModalEditComponent } from './modal-edit/modal-edit.component';
     AngularFireAuthModule,  
     MatPaginatorModule,
     MaterialModule,
+    ReactiveFormsModule,
   ],
   providers: [ AngularFireAuth, AuthGuard, LoginService], 
 })

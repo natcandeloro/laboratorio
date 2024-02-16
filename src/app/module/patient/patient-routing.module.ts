@@ -5,6 +5,7 @@ import { LayoutComponent } from './Layout/layout.component';
 import { AsComponent } from './pages/as/as.component';
 import { ContactComponent } from './pages/contact/contact.component';
 import { PatientComponent } from './pages/patient/patient.component';
+import { DescargaComponent } from './pages/descarga/descarga.component';
 
 const routes: Routes = [
   {
@@ -15,6 +16,7 @@ const routes: Routes = [
       { path: 'nosotros', component: AsComponent },
       { path: 'pacientes', component: PatientComponent },
       { path: 'contacto', component: ContactComponent },
+      { path: 'descarga', component: DescargaComponent },
       { path: '', redirectTo: 'home', pathMatch: 'full' },
     ],
   },

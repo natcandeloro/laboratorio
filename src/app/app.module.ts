@@ -12,6 +12,8 @@ import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { environment } from 'src/environments/environment';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { getStorage, provideStorage } from '@angular/fire/storage';
+
 @NgModule({
     declarations: [
         AppComponent
@@ -29,7 +31,10 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
         LayoutModule,
         ReactiveFormsModule,
         FormsModule,
-        BrowserAnimationsModule]
+        BrowserAnimationsModule,
+      provideFirebaseApp(() => initializeApp({"projectId":"paracelsus-laboratorio","appId":"1:1056131389080:web:288c1cb5e3e6b05a14e2ed","storageBucket":"paracelsus-laboratorio.appspot.com","apiKey":"AIzaSyAp6eBnJdnE7rplaJ_AZzXY5dxGqzfjjjc","authDomain":"paracelsus-laboratorio.firebaseapp.com","messagingSenderId":"1056131389080"})),
+        provideStorage(() => getStorage()),
+    ]
     
 })
 export class AppModule { }

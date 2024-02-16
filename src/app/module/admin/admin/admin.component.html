@@ -4,7 +4,7 @@
     <button class="btn-subir" (click)="toggleModal()">Subir PDF</button>
 </div>
 <div class="container">
-  <table class="table" >
+  <table class="table" *ngIf="(documentos$ | async) as documentos">
     <thead>
       <tr>
         <th>Position</th>
@@ -12,19 +12,19 @@
         <th>DNI</th>
         <th>Fecha</th>
         <th>Archivo</th>
-        <th>Editar</th>
+       <!-- <th>Editar</th> --> 
         <th>Borrar</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let valor of paginatedValores" >
-        <td>{{ valor.position }}</td>
-        <td>{{ valor.nombre }}</td>
-        <td>{{ valor.dni }}</td>
-        <td>{{ valor.date}}</td>
-        <td>{{ valor.file }}</td>
-        <td><button (click)="toggleModalEdit()" class="btn-edit"><i class="fa-solid fa-pencil"></i></button></td>
-        <td><i class="fa-solid fa-trash" ></i></td>
+      <tr *ngFor="let documento of documentos; let i = index">
+        <td>{{ i }}</td>
+        <td>{{ documento.name }}</td>
+        <td>{{ documento.dni }}</td>
+        <td>{{ documento.date }}</td>
+        <td><a href="{{ documento.file }}" target="_blank">Ver Archivo</a></td>
+        <!--<td><button (click)="toggleModalEdit()" class="btn-edit"><i class="fa-solid fa-pencil"></i></button></td> --> 
+        <td><button (click)="eliminarPaciente(documento.id)" class="btn-edit"><i class="fa-solid fa-trash" ></i></button></td>
       </tr>
     </tbody>
     <tfoot >
@@ -32,7 +32,7 @@
         <td colspan="7">
     <button [disabled]="currentPage === 0" (click)="currentPage = currentPage - 1" class="btn-pag fondo"><i class="fa-solid fa-chevron-left"></i></button>
     <span>Página {{ currentPage + 1 }}</span>
-    <button [disabled]="paginatedValores.length < pageSize" (click)="currentPage = currentPage + 1" class="btn-pag fondo"><i class="fa-solid fa-chevron-right"></i></button>
+    <button [disabled]="pacientes.length < pageSize" (click)="currentPage = currentPage + 1" class="btn-pag fondo"><i class="fa-solid fa-chevron-right"></i></button>
         </td>
       </tr> 
     </tfoot>

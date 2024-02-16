@@ -10,6 +10,8 @@ import { PatientComponent } from './pages/patient/patient.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MaterialModule } from '../material/material.module';
+import { DescargaComponent } from './pages/descarga/descarga.component';
+
 
 @NgModule({
   declarations: [
@@ -17,7 +19,7 @@ import { MaterialModule } from '../material/material.module';
     AsComponent,
     ContactComponent,
     PatientComponent,
-
+    DescargaComponent
   ],
   
   imports: [
@@ -29,6 +31,7 @@ import { MaterialModule } from '../material/material.module';
     ReactiveFormsModule,
     FormsModule,
     MaterialModule,
+    
   ]
 })
 export class PatientModule { }
