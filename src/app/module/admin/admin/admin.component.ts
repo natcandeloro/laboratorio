@@ -1,12 +1,10 @@
-import { Component, ViewChild, AfterViewInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { LoginService } from '../../autenticacion/services/login.service';
 import { Router } from '@angular/router';
 import { PanelService } from '../service/panel.service';
-import { Storage, ref, uploadBytes, listAll, getDownloadURL } from '@angular/fire/storage';
-import { Observable, first, map } from 'rxjs';
-import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
-import { FieldValue, QueryDocumentSnapshot } from '@angular/fire/firestore';
-
+import { Storage, ref, listAll, getDownloadURL } from '@angular/fire/storage';
+import { Observable } from 'rxjs';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 interface Paciente {
   id: number;
   nombre: string;
@@ -21,58 +19,61 @@ interface Paciente {
 
 })
 export class AdminComponent {
+[x: string]: any;
   pacientes: any[] = [];
-  documentos$!: Observable<any[]>;
+  pacientes$!: Observable<any[]>;
   documentos: any[] = []; 
   documentosSubscription: any;
   documentoId!: string;
+paciente: any
 
 
   constructor ( private loginService: LoginService,
                 private panelService: PanelService,
                 private router: Router,
                 private storage: Storage,
-                private firestore: AngularFirestore
-                ){ 
-                  this.documentos$ = this.firestore.collection('pacientes').snapshotChanges()
-                  .pipe(
-                    map(documentos => {
-                      return documentos.map(documento => {
-                        console.log('Documento:', documento);
-                        const id = documento.payload.doc.id;
-                        const data = documento.payload.doc.data();
-                        console.log('ID:', id);
-                        console.log('Datos:', data);
-                        if (!id || !data) {
-                          console.error('Documento no tiene el formato esperado:', documento);
-                          return null; 
-                        }
-                        return { id, ...data };
-                      }).filter(documento => documento !== null); 
-                    })
-                  );
-                }
+                private firestore: AngularFirestore){ 
+                 /* this.documentos$ = this.firestore.collection('pacientes').snapshotChanges();
+                  this.documentos$.subscribe(pacientes => {
+                    pacientes.forEach(paciente => {
+                       if (paciente.payload && paciente.payload.doc) {
+                        console.log('ID del paciente:', paciente.payload.doc.id);
+                        console.log('Datos del paciente:', paciente.payload.doc.data());
+                      } else {
+                        console.error('Paciente no válido:', paciente);
+                      }
+                    });
+                  });
+                  */
+  }
 
 
     ngOnInit(): void {
-    this.documentos$ = this.panelService.obtenerDatos();
+    this.pacientes$ = this.panelService.obtenerDatos();
 
-   this.documentos$.subscribe(documentos => {
+  this.pacientes$.subscribe(documentos => {
         console.log('Documentos recibidos:', documentos);
       });
     //  this.getDocs();
+
+    
     }
 
-    eliminarPaciente(id: string) {
-      console.log(id)
-      this.firestore.collection('pacientes').doc(id).delete()
-        .then(() => {
-          console.log('Documento eliminado correctamente');
-        })
-        .catch(error => {
-          console.error('Error al eliminar documento:', error);
-        });
+    eliminarPaciente(id: string, paciente: Paciente) {
+      if (confirm('Está seguro de eliminar este paciente?')) {
+        this.firestore.collection('pacientes').doc(id).delete()
+          .then(() => {
+            console.log('Paciente eliminado correctamente', id);
+    
+            // Update local array:
+            this.pacientes = this.pacientes.filter(p => p.id !== id);
+          })
+          .catch(error => {
+            console.error('Error al eliminar paciente:', error);
+          });
+      }
     }
+    
 
     ngOnDestroy(): void {
       this.documentosSubscription.unsubscribe();
@@ -91,8 +92,7 @@ export class AdminComponent {
       console.log('Datos obtenidos:', datos);
     });
     
-  }
-  
+  } 
 
   getDocs(){
     const docsRef = ref(this.storage, 'pacientesdocs')
@@ -111,7 +111,7 @@ export class AdminComponent {
   }
   
 
-pageSize = 10;
+pageSize = 2;
 currentPage = 0;
 
 get paginatedValores(): Paciente[] {

@@ -34,12 +34,12 @@
     <div class="row">
         <div class="col-4 ss-1 col-verde">
             <figure><img src="../../../../../assets/statics/equipomedicoblanco-150x150.png" class="figure"/>
-                <button class="boton-caja"><a class="nav-link" routerLink="nosotros"> Nuestro laboratorio</a></button>
+                <button class="boton-caja"><a (click)="navigateTo('/patient/nosotros')"> Nuestro laboratorio</a></button>
             </figure>
         </div>
         <div class="col-4 ss-2 col-verde">
             <figure><img src="../../../../../assets/statics/analisisblanco-150x150.png" class="figure"/>
-                <button class="boton-caja"><a routerLink="pacientes">¿Sabes como prepararte para tus análisis?</a></button>
+                <button class="boton-caja"><a (click)="navigateTo('/patient/pacientes')" >¿Sabes como prepararte para tus análisis?</a></button>
             </figure>
         </div>
         <div class="col-4 ss-3 col-verde">

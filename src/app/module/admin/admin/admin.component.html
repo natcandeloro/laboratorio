@@ -4,7 +4,7 @@
     <button class="btn-subir" (click)="toggleModal()">Subir PDF</button>
 </div>
 <div class="container">
-  <table class="table" *ngIf="(documentos$ | async) as documentos">
+  <table class="table" *ngIf="(pacientes$ | async) as pacientes">
     <thead>
       <tr>
         <th>Position</th>
@@ -17,14 +17,14 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let documento of documentos; let i = index">
+      <tr *ngFor="let paciente of pacientes; let i = index">
         <td>{{ i }}</td>
-        <td>{{ documento.name }}</td>
-        <td>{{ documento.dni }}</td>
-        <td>{{ documento.date }}</td>
-        <td><a href="{{ documento.file }}" target="_blank">Ver Archivo</a></td>
+        <td>{{ paciente.name }}</td>
+        <td>{{ paciente.dni }}</td>
+        <td>{{ paciente.date }}</td>
+        <td><a href="{{ paciente.file }}" target="_blank">Ver Archivo</a></td>
         <!--<td><button (click)="toggleModalEdit()" class="btn-edit"><i class="fa-solid fa-pencil"></i></button></td> --> 
-        <td><button (click)="eliminarPaciente(documento.id)" class="btn-edit"><i class="fa-solid fa-trash" ></i></button></td>
+        <td><button (click)="eliminarPaciente(paciente.id, paciente)" class="btn-edit"><i class="fa-solid fa-trash" ></i></button></td>
       </tr>
     </tbody>
     <tfoot >
