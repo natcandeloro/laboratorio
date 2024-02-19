@@ -22,41 +22,23 @@ export class AdminComponent {
 [x: string]: any;
   pacientes: any[] = [];
   pacientes$!: Observable<any[]>;
-  documentos: any[] = []; 
   documentosSubscription: any;
   documentoId!: string;
-paciente: any
-
+  paciente: any
 
   constructor ( private loginService: LoginService,
                 private panelService: PanelService,
                 private router: Router,
                 private storage: Storage,
                 private firestore: AngularFirestore){ 
-                 /* this.documentos$ = this.firestore.collection('pacientes').snapshotChanges();
-                  this.documentos$.subscribe(pacientes => {
-                    pacientes.forEach(paciente => {
-                       if (paciente.payload && paciente.payload.doc) {
-                        console.log('ID del paciente:', paciente.payload.doc.id);
-                        console.log('Datos del paciente:', paciente.payload.doc.data());
-                      } else {
-                        console.error('Paciente no válido:', paciente);
-                      }
-                    });
-                  });
-                  */
   }
 
 
     ngOnInit(): void {
     this.pacientes$ = this.panelService.obtenerDatos();
-
-  this.pacientes$.subscribe(documentos => {
-        console.log('Documentos recibidos:', documentos);
+    this.pacientes$.subscribe(pacientes => {
+        console.log('Documentos recibidos:', pacientes);
       });
-    //  this.getDocs();
-
-    
     }
 
     eliminarPaciente(id: string, paciente: Paciente) {
@@ -64,8 +46,6 @@ paciente: any
         this.firestore.collection('pacientes').doc(id).delete()
           .then(() => {
             console.log('Paciente eliminado correctamente', id);
-    
-            // Update local array:
             this.pacientes = this.pacientes.filter(p => p.id !== id);
           })
           .catch(error => {
