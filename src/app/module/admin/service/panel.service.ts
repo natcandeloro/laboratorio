@@ -29,10 +29,6 @@ export class PanelService {
     return this.firestore.collection('pacientes').add(paciente);
   }
 
- /* obtenerDatos() {
-    return this.firestore.collection('pacientes').valueChanges();
-  }*/
-
   obtenerDatos(): Observable<Paciente[]> {
     return this.pacientesCollection.valueChanges({ idField: 'id' });
   }

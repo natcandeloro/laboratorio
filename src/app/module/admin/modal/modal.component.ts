@@ -4,14 +4,6 @@ import { PanelService } from '../service/panel.service';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Storage, ref, uploadBytes, listAll, getDownloadURL } from '@angular/fire/storage';
 
-interface Paciente {
-  id: number;
-  nombre: string;
-  dni: string;
-  file: string;
-  date: string;
-}
-
 @Component({
   selector: 'app-modal',
   templateUrl: './modal.component.html',
@@ -32,14 +24,14 @@ nuevoPaciente: any;
     name: new FormControl('', Validators.required),
     dni: new FormControl ('', Validators.required),
     date: new FormControl('', Validators.required),
+    lab: new FormControl(''),
     file: new FormControl(null, Validators.required),
   });
 }
 
- enviarArchivo($event: any) {
+  enviarArchivo($event: any) {
     const file = $event.target.files[0];
     console.log(file); 
-  
     const docsRef = ref(this.storage, `pacientesdocs/${file.name}`);
     uploadBytes(docsRef, file)
       .then(snapshot => {
@@ -51,6 +43,7 @@ nuevoPaciente: any;
           dni: this.formPaciente.value.dni,
           date: this.formPaciente.value.date, 
           file: downloadURL,
+          lab: this.formPaciente.value.lab,
         };
         
         this.agregarNuevoDocumento(nuevoPaciente);
@@ -59,16 +52,16 @@ nuevoPaciente: any;
         console.log(error);
       });
   }
-  
-  agregarNuevoDocumento(nuevoPaciente: any) {
-    this.panelService.agregarDocumento(nuevoPaciente)
+
+  subirDocumento() {
+    this.panelService.agregarDocumento(this.nuevoPaciente)
       .then(() => {
         console.log('Documento agregado correctamente');
         this.mostrarMensaje('Documento agregado correctamente', true);
         setTimeout(() => {
           window.close();
           window.location.reload();
-        }); 
+        });
       })
       .catch(error => {
         console.error('Error al agregar documento:', error);
@@ -76,6 +69,9 @@ nuevoPaciente: any;
       });
   }
   
+  agregarNuevoDocumento(nuevoPaciente: any) {
+    this.nuevoPaciente = nuevoPaciente;
+  }
 
   mostrarMensaje(mensaje: string | null, exito: boolean) {
     const mensajeElemento = document.createElement('div');
@@ -97,9 +93,6 @@ nuevoPaciente: any;
     }, 1000);
   }
 
-  // OBTENER INFO 
-  obtenerPacientes(){
-  }
 // CERRAR MODAL
   @Output() closeModalEvent = new EventEmitter<void>();
   closeModal() {

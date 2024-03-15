@@ -4,7 +4,7 @@
     align-content: center;
     flex-direction: column;
     justify-content: center;
-    height: 75vh;
+    height: auto;
     background-image: linear-gradient(to bottom, rgba(0, 0, 255, 0.2), rgba(0, 0, 255, 0.2)), url('../../../../../assets/statics/female-scientist-in-the-lab-with-notepad-scaled.jpg');
     background-repeat: no-repeat;
     background-size: cover;
@@ -32,5 +32,45 @@ h1 {
 .card {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.6);
     width: 35em;
-    height: 20em;
+    height: auto;
+    margin: 2em;
+}
+
+.error-card {
+    margin-bottom: 1em;
+}
+
+.error-message{
+    color: red;
+    margin: 1em;
+    font-weight: bolder;
+}
+
+/* TABLA */
+td, th {
+    width: 25em;
+    text-align: center;
+    padding: 1em;
+}
+
+td {
+    background-color: #f8fcfa;
+}
+
+th {
+    background-color: #c2ffe3;
+}
+
+.table {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.6);
+    width: 55em;
+    height: auto;
+}
+
+
+@media (max-width: 500px) {
+    .card {
+        width: 20em;
+        height: 18em;
+    }
 }

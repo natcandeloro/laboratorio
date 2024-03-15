@@ -1,32 +1,32 @@
 <div class="modal">
     <div class="modal-content">
         <button class="close-btn" (click)="closeModal()"><i class="fa-regular fa-circle-xmark"></i></button>
-        <form  [formGroup]="formPaciente" (ngSubmit)="agregarNuevoDocumento(nuevoPaciente)">
+        <form  [formGroup]="formPaciente">
             <mat-form-field class="full-width">
                 <mat-label>Nombre paciente</mat-label>
                 <input type="text" class="my-custom-input" id="name" name="name"  formControlName="name"
                     matInput placeholder="Ingrese nombre del paciente" required />
-                <mat-error>
-                    El nombre es requerido
-                </mat-error>
+                <mat-error> El nombre es requerido </mat-error>
             </mat-form-field>
             <mat-form-field class="full-width">
             <mat-label>DNI del paciente</mat-label>
             <input type="text" class="my-custom-input" id="dni" name="dni" formControlName="dni"
                 matInput placeholder="Ingrese DNI del paciente"  />
-            <mat-error>
-                El DNI es requerido
-            </mat-error>
+            <mat-error> El DNI es requerido </mat-error>
         </mat-form-field>
         <mat-form-field class="full-width">
             <mat-label>Ingresar fecha de extracción</mat-label>
             <input matInput type="date" name="date" formControlName="date">
-            <mat-hint>MM/DD/YYYY</mat-hint>
+        </mat-form-field>
+        <mat-form-field class="full-width">
+            <mat-label>Laboratorio</mat-label>
+            <input type="text" class="my-custom-input" id="lab" name="lab" formControlName="lab"
+                matInput placeholder="Ingrese laboratorio"/>
         </mat-form-field>
         <div class="full-width">
-            <input type="file" accept=".pdf,.docx" (change)="enviarArchivo($event)" required />
+            <input type="file" accept=".pdf, .docx" (change)="enviarArchivo($event)" required />
         </div>
-        <button class="btn-info" type="submit">Subir</button>
+        <button class="btn-info" type="button" (click)="subirDocumento()">Subir</button>
             </form>
         </div>
     </div>

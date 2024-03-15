@@ -7,23 +7,67 @@
 </section>
 <hr/>
 <section>
-    <nav class="navbar navbar-expand-lg">
-        <div class="container-fluid">
-          <a class="navbar-brand" routerLink="home"><img src="../../../../../assets/statics/logo principal.png" alt="Logp de Paracelsus" class="logo"/>
-          </a>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-              <a class="nav-link active" aria-current="page" routerLink="home">Inicio </a>
-              <a class="nav-link" routerLink="nosotros">Nuestro Lab </a>
-              <a class="nav-link" routerLink="pacientes">Pacientes</a>
-              <a class="nav-link" routerLink="contacto">Contactos</a>
-            </div>
-          </div>
-        </div>
-      </nav>
-</section>
-  </header>
+  <!--
+<nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" routerLink="home">
+        <img src="../../../../../assets/statics/logo principal.png" alt="Logo de Paracelsus" class="logo"/>
+      </a>
+      <button class="navbar-toggler" type="button" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" (click)="toggleMenu()">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" [ngClass]="{'show': showMenu }">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="home" (click)="closeMenu()">Inicio</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="nosotros" (click)="closeMenu()">Nuestro Lab</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="pacientes" (click)="closeMenu()">Pacientes</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="contacto" (click)="closeMenu()">Contactos</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  -->
+ <mat-toolbar>
+    <a class="navbar-brand" routerLink="home">
+      <img src="../../../../../assets/statics/logo principal.png" alt="Logo de Paracelsus" class="logo"/>
+    </a>
+   
+    <mat-toolbar-row class="desktop-menu">
+      <a class="nav-link" routerLink="home" >Inicio </a>
+      <a class="nav-link" routerLink="nosotros" >Nuestro Lab </a>
+      <a class="nav-link" routerLink="pacientes" >Pacientes </a>
+      <a class="nav-link" routerLink="contacto" >Contactos </a>
+    </mat-toolbar-row>
+    <button mat-icon-button (click)="sidenav.toggle()" class="menu-button">
+      <mat-icon>menu</mat-icon>
+    </button>
+  </mat-toolbar>
   
+  <mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #sidenav mode="side" (click)="closeSideNav()">
+      <mat-nav-list>
+        <a mat-list-item routerLink="home" >Inicio</a>
+        <a mat-list-item routerLink="nosotros">Nuestro Lab</a>
+        <a mat-list-item routerLink="pacientes" >Pacientes</a>
+        <a mat-list-item routerLink="contacto" >Contacto</a>
+      </mat-nav-list>
+    </mat-sidenav>
+  
+    <mat-sidenav-content>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+  
+
+  
+  
+</section>
+</header>

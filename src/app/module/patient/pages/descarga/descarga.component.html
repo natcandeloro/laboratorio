@@ -1,15 +1,56 @@
 
 <div class="containere">
-    <div class="card">
+    <!--
+      <div class="card">
         <h1>Descargar estudios</h1>
         <form [formGroup]="formGroup" (ngSubmit)="descargarArchivo()" >
           <mat-form-field class="full-width">
             <mat-label>DNI</mat-label>
             <input formControlName="dni" type="text" placeholder="Ingrese DNI" required matInput>
             <mat-error >El campo debe contener 8 caracteres </mat-error>
-        </mat-form-field>
+        </mat-form-field> 
+        <div id="errorCard" class="error-card"></div> 
   <button type="submit" [disabled]="formGroup.invalid">Descargar archivo</button>
-
   </form>
+</div>
+    -->
+    <div class="card">
+      <h1>Descargar estudios</h1>
+      <form [formGroup]="formGroup" >
+        <mat-form-field class="full-width">
+          <mat-label>DNI</mat-label>
+          <input formControlName="dni" type="text" [(ngModel)]="dni" placeholder="Ingrese DNI" required matInput>
+          <mat-error >El campo debe contener 8 caracteres </mat-error>
+      </mat-form-field> 
+      <div *ngIf="errorMessage !== ''" class="error-message">{{ errorMessage }}</div>
+<button type="submit" [disabled]="formGroup.invalid" (click)="search()">Buscar...</button>
+</form>
+</div>
+      <table class="table" *ngIf="(pacientes$ | async) as pacientes">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>DNI</th>
+        <th>Fecha</th>
+        <th>Laboratorio</th>
+        <th>Archivo</th>
+</tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let paciente of pacientes">
+        <td>{{ paciente.name }}</td>
+        <td>{{ paciente.dni }}</td>
+        <td>{{ paciente.date }}</td>
+        <td>{{ paciente.lab}}</td>
+        <td><a href="{{ paciente.file }}" target="_blank">Descargar</a></td>
+      </tr>
+    </tbody>
+    <tfoot >
+      <tr>
+        <td colspan="5">
+        </td>
+      </tr> 
+    </tfoot>
+  </table>
 
 </div>

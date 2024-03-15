@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { AdminComponent } from './admin.component';
 import { RouterModule, Routes } from '@angular/router';
-import { canActivate, redirectUnauthorizedTo } from '@angular/fire/auth-guard'; 
+//import { canActivate, redirectUnauthorizedTo } from '@angular/fire/auth-guard'; 
 import { GuardService } from '../service/guard.service';
 
 

@@ -5,7 +5,7 @@
 
 <div class="image-fija2">
     <div class="center">
-      <h1>HORARIOS</h1><br/>
+        <h1>HORARIOS</h1><br/>
     <h3>HORARIOS DE EXTRACCIÓN:</h3>
     <p>LUNES A VIERNES DE 7 A 10 AM</p>
     <p>SÁBADOS DE 7:30 A 13:00 Y 15:00 A 18:30 HS </p>
@@ -19,30 +19,26 @@
     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3347.5235170211026!2d-68.85581962471028!3d-32.96358727274369!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x967e0bac1ac5e81f%3A0xdd7ed8475a312946!2sSan%20Mart%C3%ADn%208035%2C%20Luj%C3%A1n%20de%20Cuyo%2C%20Mendoza!5e0!3m2!1ses-419!2sar!4v1705320270989!5m2!1ses-419!2sar" width="1100" height="300px" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 </div>
 <div class="image-fija3">
-  <h1 class="h1-form">Buzón de sugerencias</h1>
-  <div class="form-container">
-     <form class="form" [formGroup]="registroForm" (ngSubmit)="onSubmit()">
-          <mat-label>Nombre</mat-label>
-          <mat-form-field>
-              <input matInput formControlName="name" required>
-              <mat-error>El campo es obligatorio</mat-error>
-          </mat-form-field>
+    <h1 class="h1-form">Buzón de sugerencias</h1>
+    <div class="form-container">
+        <form class="form" [formGroup]="registroForm" (ngSubmit)="onSubmit()">
+            <mat-label>Nombre</mat-label>
+            <mat-form-field>
+                <input matInput formControlName="name" required>
+                <mat-error>El campo es obligatorio</mat-error>
+            </mat-form-field>
 
-          <mat-label>Email</mat-label>
-          <mat-form-field>
-              <input matInput formControlName="email" required>
-              <mat-error>El campo es obligatorio</mat-error>
-          </mat-form-field>
-
-          <mat-label>Mensaje</mat-label>
-          <mat-form-field class="example-full-width">
-              <textarea matInput formControlName="message" required rows="4" cols="30"></textarea>
-              <mat-error>El campo es obligatorio</mat-error>
-          </mat-form-field>
-          <button mat-raised-button color="primary">Enviar</button>
-      </form> <!--
- 
-     -->       
-  </div>
+            <mat-label>Email</mat-label>
+            <mat-form-field>
+                <input matInput formControlName="email" required>
+                <mat-error>El campo es obligatorio</mat-error>
+            </mat-form-field>
+            <mat-label>Mensaje</mat-label>
+            <mat-form-field class="example-full-width">
+                <textarea matInput formControlName="message" required rows="4" cols="30"></textarea>
+                <mat-error>El campo es obligatorio</mat-error>
+            </mat-form-field>
+            <button mat-raised-button color="primary">Enviar</button>
+        </form>    
+    </div>
 </div>
-

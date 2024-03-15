@@ -8,11 +8,11 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { AuthGuard } from '@angular/fire/auth-guard';
 import { LoginService } from '../autenticacion/services/login.service';
 import { environment } from 'src/environments/environment';
-import { MatPaginatorModule } from '@angular/material/paginator';
 import { MaterialModule } from '../material/material.module';
 import { ModalComponent } from './modal/modal.component';
 import { ModalEditComponent } from './modal-edit/modal-edit.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule } from '@angular/forms'; // Importa FormsModule
 
 
 @NgModule({
@@ -26,9 +26,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     AdminRoutingModule,
     AngularFireModule.initializeApp(environment.firebase), 
     AngularFireAuthModule,  
-    MatPaginatorModule,
     MaterialModule,
     ReactiveFormsModule,
+    FormsModule
   ],
   providers: [ AngularFireAuth, AuthGuard, LoginService], 
 })

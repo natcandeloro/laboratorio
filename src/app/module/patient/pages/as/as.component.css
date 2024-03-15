@@ -1,22 +1,25 @@
-
-
 .photo-as {
     background-image: linear-gradient(to bottom, rgba(0, 0, 255, 0.2), rgba(0, 0, 255, 0.2)), url('../../../../../assets/statics/man-and-woman-take-blood-for-analysis-scaled.jpg');
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
-    height: 25em;
+    background-position: center;
+    height: 20em;
+    text-align: center;
+    color: #fff;
+    padding: 3em;
+    margin-bottom: 4em;
 }
-
-
 
 .p-as {
-    font-family: 'Poppins';
-    font-size: 26px;
     color: #fff;
+    font-family: 'Poppins';
     text-align: center;
-    padding-top: 6em;
+    font-size: 26px;
 }
+
+
+
 
 p {
     font-family: 'Poppins';
@@ -50,6 +53,29 @@ li {
     color: #7A7A7A;
     }
 
+    @media (max-width: 700px) {
+        .row {
+            flex-direction: column;
+        }
+
+        .mision-photo {
+            width: 17em;
+        } 
+        
+        .col-5 {
+            width: 90%;
+            margin: 1em 2em;
+        }
+
+        .none {
+            display: none;
+        }
+
+        li {
+            padding: 0 2em;
+        }
+        }
+    
 
 
 

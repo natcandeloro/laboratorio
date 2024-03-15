@@ -93,4 +93,8 @@ p {
     mat-card-title {
       font-size: 20px;
     }
+
+    mat-card{
+      width: 80%;
+    }
   }

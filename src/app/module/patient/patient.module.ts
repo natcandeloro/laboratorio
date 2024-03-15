@@ -11,7 +11,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MaterialModule } from '../material/material.module';
 import { DescargaComponent } from './pages/descarga/descarga.component';
-
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 @NgModule({
   declarations: [
@@ -31,6 +31,7 @@ import { DescargaComponent } from './pages/descarga/descarga.component';
     ReactiveFormsModule,
     FormsModule,
     MaterialModule,
+    MatToolbarModule,
     
   ]
 })
