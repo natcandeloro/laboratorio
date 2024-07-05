@@ -71,6 +71,12 @@ th {
 @media (max-width: 500px) {
     .card {
         width: 20em;
-        height: 18em;
+        height: auto;
     }
+
+    .table {
+        width: 25em;
+    }
+    
+
 }

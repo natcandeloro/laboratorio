@@ -33,3 +33,32 @@
     font-size: 2em;
   }
 
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+input {
+  width: 85%;
+}
+
+.btn-info{
+  margin: 1em 5em;
+  padding: 1em;
+  background-color: #1BC375;
+  border: #1BC375;
+  color: #fff;
+}
+
+.card {
+  margin: 5em;
+  display: flex;
+  align-items: center;
+  border-radius: 8px; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); 
+}
+
+h1 {
+  margin: 1em;
+}

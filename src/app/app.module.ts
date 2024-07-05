@@ -14,12 +14,14 @@ import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { getStorage, provideStorage } from '@angular/fire/storage';
 import { MaterialModule } from './module/material/material.module';
+import {MatSelectModule} from '@angular/material/select';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
     declarations: [
         AppComponent
     ],
-    providers: [AngularFireAuth],
+    providers: [AngularFireAuth,  DatePipe],
     bootstrap: [AppComponent],
     imports: [
         AngularFireModule.initializeApp(environment.firebase),
@@ -33,8 +35,9 @@ import { MaterialModule } from './module/material/material.module';
         ReactiveFormsModule,
         MaterialModule,
         FormsModule,
+        MatSelectModule,
         BrowserAnimationsModule,
-      provideFirebaseApp(() => initializeApp({"projectId":"paracelsus-laboratorio","appId":"1:1056131389080:web:288c1cb5e3e6b05a14e2ed","storageBucket":"paracelsus-laboratorio.appspot.com","apiKey":"AIzaSyAp6eBnJdnE7rplaJ_AZzXY5dxGqzfjjjc","authDomain":"paracelsus-laboratorio.firebaseapp.com","messagingSenderId":"1056131389080"})),
+        provideFirebaseApp(() => initializeApp({"projectId":"paracelsus-laboratorio","appId":"1:1056131389080:web:288c1cb5e3e6b05a14e2ed","storageBucket":"paracelsus-laboratorio.appspot.com","apiKey":"AIzaSyAp6eBnJdnE7rplaJ_AZzXY5dxGqzfjjjc","authDomain":"paracelsus-laboratorio.firebaseapp.com","messagingSenderId":"1056131389080"})),
         provideStorage(() => getStorage()),
     ]
     

@@ -13,13 +13,17 @@ import { ModalComponent } from './modal/modal.component';
 import { ModalEditComponent } from './modal-edit/modal-edit.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormsModule } from '@angular/forms'; // Importa FormsModule
-
-
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatInputModule} from '@angular/material/input';
+import { FormatDatePipe } from '../admin/format-date.pipe';
 @NgModule({
   declarations: [
     AdminComponent,
     ModalComponent,
     ModalEditComponent,
+    FormatDatePipe,
   ],
   imports: [
     CommonModule,
@@ -28,7 +32,11 @@ import { FormsModule } from '@angular/forms'; // Importa FormsModule
     AngularFireAuthModule,  
     MaterialModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatDatepickerModule,
+    MatInputModule
   ],
   providers: [ AngularFireAuth, AuthGuard, LoginService], 
 })

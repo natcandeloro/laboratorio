@@ -12,14 +12,14 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { MaterialModule } from '../material/material.module';
 import { DescargaComponent } from './pages/descarga/descarga.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
-
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     HomeComponent,
     AsComponent,
     ContactComponent,
     PatientComponent,
-    DescargaComponent
+    DescargaComponent,
   ],
   
   imports: [
@@ -32,7 +32,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     FormsModule,
     MaterialModule,
     MatToolbarModule,
-    
+    HttpClientModule
   ]
 })
 export class PatientModule { }

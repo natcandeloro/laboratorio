@@ -8,6 +8,13 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    z-index: 10;
+  }
+
+  .error-message {
+    color: red;
+    font-size: 17px;
+    font-weight: 400;
   }
   
   .modal-content {
@@ -19,7 +26,9 @@
     height: auto;
     box-sizing: border-box;
     position: relative;
+    z-index: 1000;
   }
+
 
   .close-btn {
     position: absolute;
@@ -54,5 +63,16 @@
     min-height: 56px;
 }
 
+.btn-info {
+  margin: 1em;
+}
 
+.file-name {
+  font-size: 15px;
+  color: #000;
+}
+
+.mat-mdc-form-field {
+  height: 4em !important;
+  }
 

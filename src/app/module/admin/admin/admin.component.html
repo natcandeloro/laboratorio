@@ -7,16 +7,35 @@
   </div>
 <hr/>
 <div class="search">
-<input type="text" [(ngModel)]="dni" placeholder="DNI">
-<button (click)="search()">Buscar</button>
+  <mat-form-field class="full-width">
+    <input  matInput type="text" [(ngModel)]="dni" placeholder="DNI">
+</mat-form-field>
+<button (click)="search()" >Buscar por DNI</button>
+<div *ngIf="errorMessage">
+  <p style="color: red;">No se encontraron pacientes para el DNI proporcionado.</p>
 </div>
+</div>
+<div class="search">
+  <mat-form-field class="full-width">
+    <mat-label>Laboratorio</mat-label>
+        <mat-select #mySelect id="lab" matInput type="text" name="lab" [(ngModel)]="lab"  >
+        <mat-option value="Paracelsus">PARACELSUS</mat-option>
+        <mat-option value="Galeno">GALENO</mat-option>
+        <mat-option value="San Alberto">SAN ALBERTO</mat-option>
+    </mat-select>
+</mat-form-field>
+
+  <button (click)="searchLab()" >Buscar por Lab</button>
+</div>
+<button mat-button class="btn" (click)="refrescar()">Refrescar</button>
+
   <table class="table" *ngIf="pacientes">
     <thead>
       <tr>
-        <th>Position</th>
+        <th>Fecha carga</th>
         <th>Nombre</th>
         <th>DNI</th>
-        <th>Fecha</th>
+        <th>Fecha de atención</th>
         <th>Laboratorio</th>
         <th>Archivo</th>
         <!-- <th>Editar</th> --> 
@@ -24,11 +43,11 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let paciente of pacientesEnPagina; let i = index ">
-        <td>{{ i + 1 }}</td>
+      <tr *ngFor="let paciente of pacientesEnPagina ">
+        <td>{{ paciente.fechaDeCarga | formatDate}}</td>
         <td>{{ paciente.name }}</td>
         <td>{{ paciente.dni }}</td>
-        <td>{{ paciente.date }}</td>
+        <td>{{ paciente.date | formatDate }}</td>
         <td>{{ paciente.lab}}</td>
         <td><a href="{{ paciente.file }}" target="_blank">Ver Archivo</a></td>
         <!--<td><button (click)="toggleModalEdit()" class="btn-edit"><i class="fa-solid fa-pencil"></i></button></td> --> 
@@ -56,7 +75,7 @@
       </li>
     </ul>
   </div>
-  
+
   <br/>
 </div>
 <app-modal *ngIf="modalVisible" (closeModalEvent)="closeModal()"></app-modal>

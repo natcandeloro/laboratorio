@@ -9,6 +9,7 @@
     <h3>HORARIOS DE EXTRACCIÓN:</h3>
     <p>LUNES A VIERNES DE 7 A 10 AM</p>
     <p>SÁBADOS DE 7:30 A 13:00 Y 15:00 A 18:30 HS </p>
+    <h3>RECORDÁ QUE REALIZAMOS EXTRACCIONES A DOMICILIO</h3>
     <h3>HORARIOS DE ATENCIÓN DE SECRETARIA:</h3>
     <p>LUNES A VIERNES </p>
     <h3>DIRECCIÓN: </h3>
@@ -21,17 +22,19 @@
 <div class="image-fija3">
     <h1 class="h1-form">Buzón de sugerencias</h1>
     <div class="form-container">
-        <form class="form" [formGroup]="registroForm" (ngSubmit)="onSubmit()">
+        <form class="form" [formGroup]="registroForm" (ngSubmit)="onSubmit(registroForm)" action="https://formsubmit.co/nataliacandeloro@gmail.com" method="POST">
+            <input type="hidden" name="_captcha" value="false">
+<input type="hidden" name="_next" value=" ">
             <mat-label>Nombre</mat-label>
             <mat-form-field>
                 <input matInput formControlName="name" required>
-                <mat-error>El campo es obligatorio</mat-error>
+                <mat-error>El campo es obligatorio.  <br/>Ingresar un nombre valido</mat-error>
             </mat-form-field>
 
             <mat-label>Email</mat-label>
             <mat-form-field>
                 <input matInput formControlName="email" required>
-                <mat-error>El campo es obligatorio</mat-error>
+                <mat-error>El campo es obligatorio. <br/> Ingresar un email váido</mat-error>
             </mat-form-field>
             <mat-label>Mensaje</mat-label>
             <mat-form-field class="example-full-width">
@@ -39,6 +42,8 @@
                 <mat-error>El campo es obligatorio</mat-error>
             </mat-form-field>
             <button mat-raised-button color="primary">Enviar</button>
+            <div *ngIf="mostrarMensajeEnviado" class="mensaje-enviado" style="color: green; background-color: #fff; font-weight: bolder; margin: 2em 0; padding: 1em; font-size: 1em;">EL FORMULARIO SE HA ENVIADO CORRECTAMENTE.</div>
+
         </form>    
     </div>
 </div>

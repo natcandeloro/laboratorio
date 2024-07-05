@@ -20,7 +20,7 @@
         <mat-form-field class="full-width">
           <mat-label>DNI</mat-label>
           <input formControlName="dni" type="text" [(ngModel)]="dni" placeholder="Ingrese DNI" required matInput>
-          <mat-error >El campo debe contener 8 caracteres </mat-error>
+          <mat-error >Ingresar un numero válido</mat-error>
       </mat-form-field> 
       <div *ngIf="errorMessage !== ''" class="error-message">{{ errorMessage }}</div>
 <button type="submit" [disabled]="formGroup.invalid" (click)="search()">Buscar...</button>
@@ -32,7 +32,6 @@
         <th>Nombre</th>
         <th>DNI</th>
         <th>Fecha</th>
-        <th>Laboratorio</th>
         <th>Archivo</th>
 </tr>
     </thead>
@@ -41,7 +40,6 @@
         <td>{{ paciente.name }}</td>
         <td>{{ paciente.dni }}</td>
         <td>{{ paciente.date }}</td>
-        <td>{{ paciente.lab}}</td>
         <td><a href="{{ paciente.file }}" target="_blank">Descargar</a></td>
       </tr>
     </tbody>

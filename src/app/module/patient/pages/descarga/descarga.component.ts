@@ -37,9 +37,9 @@ export class DescargaComponent implements OnInit {
         this.formGroup = new FormGroup({
   dni: new FormControl('', [
     Validators.required,
-    Validators.minLength(8),
-    Validators.maxLength(8),
-    Validators.pattern('[0-9]*'),
+    Validators.minLength(7),
+    Validators.maxLength(9),
+    Validators.pattern('[a-zA-Z0-9]*'),
   ]),
 });
 }
@@ -89,6 +89,9 @@ descargarArchivo() {
         this.pacientes$.subscribe(pacientes => {
           if (pacientes.length === 0) {
               this.errorMessage = "No se encontraron pacientes con el DNI especificado.";
+              setTimeout(() => {
+                this.errorMessage = '';
+            }, 8000);
           } else {
               this.errorMessage = ''; // Limpiar el mensaje de error si se encuentran pacientes
           }

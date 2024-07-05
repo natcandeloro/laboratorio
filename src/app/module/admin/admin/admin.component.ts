@@ -2,12 +2,11 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { LoginService } from '../../autenticacion/services/login.service';
 import { Router } from '@angular/router';
 import { PanelService } from '../service/panel.service';
-import { Storage } from '@angular/fire/storage';
 import { Observable, Subscription, map } from 'rxjs';
 import { AngularFirestore, QueryFn } from '@angular/fire/compat/firestore';
 
 interface Paciente {
-  id: number;
+  fechaDeCarga: string;
   name: string;
   dni: number;
   file: string;
@@ -33,6 +32,7 @@ export class AdminComponent implements OnInit, OnDestroy{
   totalItems!: number;
   currentPage = 1; 
   itemsPerPage =  20;
+  errorMessage: boolean = false;
 
   constructor ( private loginService: LoginService,
                 private panelService: PanelService,
@@ -40,12 +40,29 @@ export class AdminComponent implements OnInit, OnDestroy{
                 private firestore: AngularFirestore){ 
                   this.pacientes$ = this.firestore.collection('pacientes').valueChanges();
   }
+  ordenarPorFechaDeCarga(pacientes: any[]): any[] {
+    // Filtra los pacientes con fecha de carga
+    const conFecha = pacientes.filter(p => p.fechaDeCarga);
+    // Filtra los pacientes sin fecha de carga
+    const sinFecha = pacientes.filter(p => !p.fechaDeCarga);
+    // Combina los arrays, poniendo los pacientes con fecha primero
+    return [...conFecha, ...sinFecha];
+  }
 
-    ngOnInit(): void {
-      this.panelService.obtenerDatos().subscribe(pacientes => {
+/*    ngOnInit(): void {
+     this.panelService.obtenerDatos().subscribe(pacientes => {
         this.totalItems = pacientes.length;
-        this.pacientes = pacientes;    });
-    }
+        this.pacientes = pacientes;   
+      console.log(pacientes) });
+    }*/
+
+      ngOnInit(): void {
+        this.panelService.obtenerDatos().subscribe(pacientes => {
+          this.totalItems = pacientes.length;
+          this.pacientes = this.ordenarPorFechaDeCarga(pacientes);
+          console.log(this.pacientes);
+        });
+      }
 
     cambiarPagina(page: number) {
       if (page >= 1 && page <= this.totalPages) {
@@ -79,13 +96,60 @@ export class AdminComponent implements OnInit, OnDestroy{
 
     // BUSCADOR POR DNI
     search(): void {
+      const data: unknown = {};
       let queryFn: QueryFn<any> = ref => ref; 
       if (this.dni !== '') {
         queryFn = ref => ref.where('dni', '==', this.dni);
       }
-      this.pacientes$ = this.firestore.collection('pacientes', queryFn).valueChanges();
-console.log()
+      this.firestore.collection('pacientes', queryFn).snapshotChanges().subscribe(pacientes => {
+        this.pacientes = pacientes.map(paciente => {
+          const data = paciente.payload.doc.data();
+          const id = paciente.payload.doc.id;
+          if (typeof data === 'object' && data !== null) {
+            return { id, ...data };
+          } else {
+            console.error('Los datos del paciente no son un objeto válido:', data);
+            return null; 
+          }
+        }).filter(paciente => paciente !== null);
+        console.log(this.pacientes);
+        if (this.pacientes.length === 0) {
+          this.errorMessage = true;
+          this.pacientes = []; 
+        } else {
+          this.errorMessage = false;
+        }
+      });
+    };
+
+    refrescar(): void {
+      this.panelService.obtenerDatos().subscribe(pacientes => {
+        this.totalItems = pacientes.length;
+        this.pacientes = pacientes;
+        console.log(pacientes);
+      });
     }
+    
+    searchLab(): void {
+      const data: unknown = {};
+      let queryFn: QueryFn<any> = ref => ref; 
+      if (this.lab !== '') {
+        queryFn = ref => ref.where('lab', '==', this.lab);
+      }
+      this.firestore.collection('pacientes', queryFn).snapshotChanges().subscribe(pacientes => {
+        this.pacientes = pacientes.map(paciente => {
+          const data = paciente.payload.doc.data();
+          const id = paciente.payload.doc.id;
+          if (typeof data === 'object' && data !== null) {
+            return { id, ...data };
+          } else {
+            console.error('Los datos del paciente no son un objeto válido:', data);
+            return null; 
+          }
+        }).filter(paciente => paciente !== null);
+        console.log(this.pacientes);
+      });
+    };
     
     // ELIMINA PACIENTE
     eliminarPaciente(id: string, paciente: Paciente) {
@@ -112,12 +176,6 @@ console.log()
         this.router.navigate(['/auth/login'])
         .catch(error => console.log(error)
         );
-      }
-
-      obtenerPacientes() {
-        this.panelService.obtenerDatos().subscribe(datos => {
-          console.log('Datos obtenidos:', datos);
-        });
       }
 
 /*  MODAL */

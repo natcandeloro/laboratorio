@@ -2,8 +2,8 @@ import { Component, EventEmitter, Output, Input } from '@angular/core';
 import { AngularFirestore} from '@angular/fire/compat/firestore';
 import { PanelService } from '../service/panel.service';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-import { Storage, ref, uploadBytes, listAll, getDownloadURL } from '@angular/fire/storage';
-
+import { Storage, ref, uploadBytes, getDownloadURL } from '@angular/fire/storage';
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-modal',
   templateUrl: './modal.component.html',
@@ -11,14 +11,16 @@ import { Storage, ref, uploadBytes, listAll, getDownloadURL } from '@angular/fir
 
 })
 export class ModalComponent {
-
   formPaciente!: FormGroup; 
-nuevoPaciente: any;
+  nuevoPaciente: any;
+  errorMessage: string | null = null;
+  archivoArrastrado!: File ;
 
   constructor(private firestore: AngularFirestore,
               private panelService: PanelService,
               private fb: FormBuilder,
-              private storage: Storage,) {
+              private storage: Storage,
+              private datePipe: DatePipe) {
 // FORM 
   this.formPaciente = this.fb.group({
     name: new FormControl('', Validators.required),
@@ -29,8 +31,37 @@ nuevoPaciente: any;
   });
 }
 
-  enviarArchivo($event: any) {
-    const file = $event.target.files[0];
+  permitirArrastrar(event: DragEvent) {
+    event.preventDefault();
+  }
+  
+  soltarArchivo(event: DragEvent) {
+    event.preventDefault();
+    const file = event.dataTransfer?.files[0];
+    if (file && file.type === 'application/pdf') {
+      this.subirArchivo(file);
+      this.archivoArrastrado = file;
+    } else {
+      this.errorMessage = 'Por favor, suelta solo archivos PDF.';
+    }
+  }
+  obtenerArchivo(event: DragEvent): File | null {
+    const file = event.dataTransfer?.files[0];
+    return file || null;
+  }
+  
+  toUppercase(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    input.value = input.value.toUpperCase();
+  }
+  
+  enviarArchivo(event: any) {
+    const file = event.target.files[0];
+    this.subirArchivo(file);
+    this.archivoArrastrado = file;
+  }
+  
+  subirArchivo(file: File) {
     console.log(file); 
     const docsRef = ref(this.storage, `pacientesdocs/${file.name}`);
     uploadBytes(docsRef, file)
@@ -39,13 +70,14 @@ nuevoPaciente: any;
       })
       .then(downloadURL => {
         const nuevoPaciente = {
+          fechaDeCarga: new Date().toISOString(),
           name: this.formPaciente.value.name,
           dni: this.formPaciente.value.dni,
           date: this.formPaciente.value.date, 
           file: downloadURL,
           lab: this.formPaciente.value.lab,
         };
-        
+
         this.agregarNuevoDocumento(nuevoPaciente);
       })
       .catch(error => {
@@ -58,10 +90,7 @@ nuevoPaciente: any;
       .then(() => {
         console.log('Documento agregado correctamente');
         this.mostrarMensaje('Documento agregado correctamente', true);
-        setTimeout(() => {
-          window.close();
-          window.location.reload();
-        });
+        this.limpiarCampos(); 
       })
       .catch(error => {
         console.error('Error al agregar documento:', error);
@@ -69,6 +98,10 @@ nuevoPaciente: any;
       });
   }
   
+  limpiarCampos() {
+      this.formPaciente.reset(); // Esto limpiará todos los campos del FormGroup
+    }
+
   agregarNuevoDocumento(nuevoPaciente: any) {
     this.nuevoPaciente = nuevoPaciente;
   }

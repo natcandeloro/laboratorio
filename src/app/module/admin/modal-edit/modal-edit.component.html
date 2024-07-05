@@ -1,7 +1,8 @@
 <div class="modal">
     <div class="modal-content">
         <button class="close-btn" (click)="closeModal()"><i class="fa-regular fa-circle-xmark"></i></button>
-        <h1>Editar</h1>
+        <div class="card">
+            <h1>Editar</h1>
         <form>
             <mat-form-field class="full-width">
                 <mat-label>Nombre paciente</mat-label>
@@ -20,14 +21,22 @@
             </mat-error>
         </mat-form-field>
         <mat-form-field class="full-width">
-            <mat-label>Archivo</mat-label>
-            <input class="my-custom-input" id="file" name="file" formControlName="file"
-                matInput placeholder="Suba archivo" required />
-            <mat-error>
-                El archivo es requerido
-            </mat-error>
+            <mat-label>Ingresar fecha de extracción</mat-label>
+            <input matInput type="date" name="date" formControlName="date">
         </mat-form-field>
+        <mat-form-field class="full-width">
+            <mat-label>Laboratorio</mat-label>
+            <input type="text" class="my-custom-input" id="lab" name="lab" formControlName="lab"
+                matInput placeholder="Ingrese laboratorio"/>
+        </mat-form-field>
+        <div class="full-width">
+            <input type="file" accept=".pdf"  required />
+        </div>
         <button class="btn-info">Guardar</button>
             </form>
+        </div>
     </div>
 </div>
+
+
+

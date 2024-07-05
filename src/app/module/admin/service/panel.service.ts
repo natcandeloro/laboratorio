@@ -4,6 +4,7 @@ import { Observable, map } from 'rxjs';
 import { Storage, ref, uploadBytes } from '@angular/fire/storage';
 
 interface Paciente {
+  fechaDeCarga: string;
   id: number;
   nombre: string;
   DNI: number;
@@ -21,16 +22,17 @@ export class PanelService {
   constructor( 
     private firestore: AngularFirestore,
     private storage: Storage    ) {
-      this.pacientesCollection = this.firestore.collection<Paciente>('pacientes', ref => ref.orderBy('date'));
-      ;
-     }
+      this.pacientesCollection = this.firestore.collection<Paciente>('pacientes');
+      ;     }
 
   agregarDocumento(paciente: any) {
     return this.firestore.collection('pacientes').add(paciente);
   }
 
   obtenerDatos(): Observable<Paciente[]> {
-    return this.pacientesCollection.valueChanges({ idField: 'id' });
+    return this.pacientesCollection
+      .valueChanges({ idField: 'id' })
+
   }
 
   eliminarPaciente(id: string){

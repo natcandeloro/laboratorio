@@ -21,5 +21,12 @@ export class LoginService {
     return this.afAuth.signOut(); 
   }
 
- 
+  async enviarCorreoRecuperacion(email: string): Promise<void> {
+    try {
+      await this.afAuth.sendPasswordResetEmail(email);
+      console.log('Correo electrónico de recuperación enviado correctamente.');
+    } catch (error) {
+      console.error('Error al enviar correo electrónico de recuperación:', error);
+    }
+  }
 }
