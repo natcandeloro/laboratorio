@@ -39,22 +39,30 @@ export class AdminComponent implements OnInit, OnDestroy{
                 private router: Router,
                 private firestore: AngularFirestore){ 
                   this.pacientes$ = this.firestore.collection('pacientes').valueChanges();
-  }
-  ordenarPorFechaDeCarga(pacientes: any[]): any[] {
-    // Filtra los pacientes con fecha de carga
-    const conFecha = pacientes.filter(p => p.fechaDeCarga);
-    // Filtra los pacientes sin fecha de carga
-    const sinFecha = pacientes.filter(p => !p.fechaDeCarga);
-    // Combina los arrays, poniendo los pacientes con fecha primero
-    return [...conFecha, ...sinFecha];
-  }
+  } 
 
-/*    ngOnInit(): void {
-     this.panelService.obtenerDatos().subscribe(pacientes => {
+    refrescar(): void {
+      this.panelService.obtenerDatos().subscribe(pacientes => {
         this.totalItems = pacientes.length;
-        this.pacientes = pacientes;   
-      console.log(pacientes) });
-    }*/
+        this.pacientes = this.ordenarPorFechaDeCarga(pacientes); // Aplica la ordenación
+        console.log(this.pacientes);
+        this.currentPage = 1; // Resetea a la página 1
+      });
+    }
+    
+    ordenarPorFechaDeCarga(pacientes: any[]): any[] {
+      // Filtra los pacientes con fecha de carga
+      const conFecha = pacientes.filter(p => p.fechaDeCarga).sort((a, b) => {
+        // Ordena por fecha de carga de manera descendente
+        return new Date(b.fechaDeCarga).getTime() - new Date(a.fechaDeCarga).getTime();
+      });
+      
+      // Filtra los pacientes sin fecha de carga
+      const sinFecha = pacientes.filter(p => !p.fechaDeCarga);
+      
+      // Combina los arrays, poniendo los pacientes con fecha primero
+      return [...conFecha, ...sinFecha];
+    }
 
       ngOnInit(): void {
         this.panelService.obtenerDatos().subscribe(pacientes => {
@@ -84,9 +92,27 @@ export class AdminComponent implements OnInit, OnDestroy{
       return { startIndex, endIndex };
     }
 
-  // Método para generar un array con las páginas
+      // Método para generar un array con las páginas visibles
   get paginas(): number[] {
-    return Array.from({ length: this.totalPages }, (_, index) => index + 1);
+    const maxVisiblePages = 5;
+    const half = Math.floor(maxVisiblePages / 2);
+    let startPage = Math.max(1, this.currentPage - half);
+    let endPage = Math.min(this.totalPages, this.currentPage + half);
+
+    if (this.currentPage <= half) {
+      endPage = Math.min(this.totalPages, maxVisiblePages);
+    }
+
+    if (this.currentPage + half >= this.totalPages) {
+      startPage = Math.max(1, this.totalPages - maxVisiblePages + 1);
+    }
+
+    const paginasVisibles = [];
+    for (let i = startPage; i <= endPage; i++) {
+      paginasVisibles.push(i);
+    }
+
+    return paginasVisibles;
   }
 
   get pacientesEnPagina(): any[] {
@@ -119,16 +145,11 @@ export class AdminComponent implements OnInit, OnDestroy{
         } else {
           this.errorMessage = false;
         }
+        this.currentPage = 1; // Resetea a la página 1
       });
     };
 
-    refrescar(): void {
-      this.panelService.obtenerDatos().subscribe(pacientes => {
-        this.totalItems = pacientes.length;
-        this.pacientes = pacientes;
-        console.log(pacientes);
-      });
-    }
+
     
     searchLab(): void {
       const data: unknown = {};
@@ -148,6 +169,7 @@ export class AdminComponent implements OnInit, OnDestroy{
           }
         }).filter(paciente => paciente !== null);
         console.log(this.pacientes);
+        this.currentPage = 1; // Resetea a la página 1
       });
     };
     

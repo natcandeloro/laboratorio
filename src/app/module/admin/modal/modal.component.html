@@ -28,16 +28,9 @@
         </mat-form-field>
         <div class="full-width">
         <!-- <input type="file" accept=".pdf" (change)="enviarArchivo($event)" required />--> 
-        <div  (dragover)="permitirArrastrar($event)" 
-        (drop)="soltarArchivo($event)" 
-        style="border: 2px dashed #ccc; padding: 20px;">
-            Arrastra y suelta aquí tu archivo PDF  
-        </div>
-
-        </div>        
+        <div  (dragover)="permitirArrastrar($event)"(drop)="soltarArchivo($event)" style="border: 2px dashed #ccc; padding: 20px;">Arrastra y suelta aquí tu archivo PDF</div>
+    </div>        
         <div *ngIf="archivoArrastrado" class="file-name">{{ archivoArrastrado.name }}</div>
-
-
         <button class="btn-info" type="button" (click)="subirDocumento()">Subir</button>
         <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
             </form>
