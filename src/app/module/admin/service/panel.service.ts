@@ -32,7 +32,6 @@ export class PanelService {
   obtenerDatos(): Observable<Paciente[]> {
     return this.pacientesCollection
       .valueChanges({ idField: 'id' })
-
   }
 
   eliminarPaciente(id: string){
@@ -41,6 +40,17 @@ export class PanelService {
 
   actualizarDocumento(idDocumento: string, nuevoDocumento: any): Promise<void> {
     return this.firestore.collection('pacientes').doc(idDocumento).set(nuevoDocumento, { merge: true });
+  }
+
+  buscarPorFecha(fechaDeCarga: string): Observable<any[]> {
+    
+    const fechaISO = new Date(fechaDeCarga).toISOString();
+    
+    return this.firestore
+      .collection('pacientes', ref =>
+        ref.where('fechaDeCarga', '==', fechaISO)
+      )
+      .valueChanges();
   }
 
 }

@@ -21,7 +21,7 @@
     background: #fff;
     padding: 20px;
     border-radius: 5px;
-    width: 80%; 
+    width: 100%; 
     max-width: 500px;
     height: auto;
     box-sizing: border-box;
@@ -55,7 +55,7 @@
   }
 
   input[type="file"] {
-    margin: 1em;
+    margin: 1.5em;
     border-bottom: #000;
     background-color: #ECECEC;
     padding-top: 24px;
@@ -74,5 +74,9 @@
 
 .mat-mdc-form-field {
   height: 4em !important;
+  margin: 0.5em;
+  width: 100%;
   }
+
+
 

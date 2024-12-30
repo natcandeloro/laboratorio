@@ -18,12 +18,14 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatInputModule} from '@angular/material/input';
 import { FormatDatePipe } from '../admin/format-date.pipe';
+import { SafeDatePipe } from './admin/safeDate.pipe';
 @NgModule({
   declarations: [
     AdminComponent,
     ModalComponent,
     ModalEditComponent,
     FormatDatePipe,
+    SafeDatePipe
   ],
   imports: [
     CommonModule,

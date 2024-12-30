@@ -1,11 +1,12 @@
 <header>
-    <section class="iconos">
-        <a href="https://wa.me/5492616529790" target="_blank"><i class="fa-brands fa-whatsapp" style="color: #34a853;"></i></a>
-        <a href="https://www.facebook.com/ParacelsusLaboratorio/" target="_blank"><i class="fa-brands fa-square-facebook" style="color:#557DBC;"></i></a>
-        <a href="mailto:labparacelsus@gmail.com" target="_blank"><i class="fa-regular fa-envelope" style="color: red;"></i> </a>
-        <a href="https://www.google.com/maps/place/San+Mart%C3%ADn+8035,+Luj%C3%A1n+de+Cuyo,+Mendoza/@-32.963607,-68.853241,15z/data=!4m6!3m5!1s0x967e0bac1ac5e81f:0xdd7ed8475a312946!8m2!3d-32.9635918!4d-68.8532447!16s%2Fg%2F11jgxnkrhy?hl=es-ES&entry=ttu" target="_blank"><i class="fas fa-map-marker-alt" style="color: #34a853;"></i> </a>
-</section>
-<hr/>
+  <!--
+  <section class="iconos">
+    <a href="https://wa.me/5492616529790" target="_blank"><i class="fa-brands fa-whatsapp" style="color: #34a853;"></i></a>
+    <a href="https://www.facebook.com/ParacelsusLaboratorio/" target="_blank"><i class="fa-brands fa-square-facebook" style="color:#557DBC;"></i></a>
+    <a href="mailto:labparacelsus@gmail.com" target="_blank"><i class="fa-regular fa-envelope" style="color: red;"></i> </a>
+    <a href="https://www.google.com/maps/place/San+Mart%C3%ADn+8035,+Luj%C3%A1n+de+Cuyo,+Mendoza/@-32.963607,-68.853241,15z/data=!4m6!3m5!1s0x967e0bac1ac5e81f:0xdd7ed8475a312946!8m2!3d-32.9635918!4d-68.8532447!16s%2Fg%2F11jgxnkrhy?hl=es-ES&entry=ttu" target="_blank"><i class="fas fa-map-marker-alt" style="color: #34a853;"></i> </a>
+  </section>
+  -->  
 <section>
  <mat-toolbar>
     <a class="navbar-brand" routerLink="home">
@@ -21,6 +22,7 @@
       <mat-icon>menu</mat-icon>
     </button>
   </mat-toolbar>
+  
   <div class="content">
 <a class=" btn-subir" mat-list-item routerLink="descarga" style="margin-bottom: 1em;"> MIS RESULTADOS</a>
   </div>
@@ -34,7 +36,14 @@
       </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>
-      <router-outlet></router-outlet>
+      <router-outlet>
+        <a href="mailto:labparacelsus@gmail.com" target="_blank" class="email-fijo">
+          <img src="../../../../assets/statics/circulo.png" alt="Email">
+        </a>
+        <a href="https://wa.me/5492616529790" target="_blank" class="whatsapp-fijo">
+          <img src="../../../../assets/statics/social.png" alt="WhatsApp">
+        </a>
+      </router-outlet>
     </mat-sidenav-content>
   </mat-sidenav-container>
 </section>

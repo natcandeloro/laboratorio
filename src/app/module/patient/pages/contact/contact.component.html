@@ -1,7 +1,40 @@
 <div class="image-fija"></div>
-<div class="espacio">
+<div class="form-container">
+  <form action="https://formsubmit.co/labparacelsus@gmail.com" method="POST" [formGroup]="registroForm" (ngSubmit)="onSubmit(registroForm)">
     <h1 class="h1-black">NOS ALEGRA QUE HAYAS LLEGADO HASTA ACA!</h1>
-    <p class="p-black">Significa que has visitado toda nuestra página, significa mucho para nosotros te esperamos cordialmente para brindarte nuestro amado servicio con mucha vocación.</p></div>
+
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_next" value="https://labparacelsus.com">
+    <mat-label>Nombre</mat-label>
+    <mat-form-field>
+      <input matInput formControlName="name" required>
+      <mat-error *ngIf="registroForm.get('name')?.hasError('required')">El campo es obligatorio.</mat-error>
+      <mat-error *ngIf="registroForm.get('name')?.hasError('pattern')">Ingresar un nombre válido</mat-error>
+    </mat-form-field>
+
+    <mat-label>Email</mat-label>
+    <mat-form-field>
+      <input matInput formControlName="email" required>
+      <mat-error *ngIf="registroForm.get('email')?.hasError('required')">El campo es obligatorio.</mat-error>
+      <mat-error *ngIf="registroForm.get('email')?.hasError('email')">Ingresar un email válido</mat-error>
+    </mat-form-field>
+
+    <mat-label>Mensaje</mat-label>
+    <mat-form-field class="example-full-width">
+      <textarea matInput formControlName="message" required rows="4" cols="30"></textarea>
+      <mat-error *ngIf="registroForm.get('message')?.hasError('required')">El campo es obligatorio</mat-error>
+    </mat-form-field>
+
+    <button type="submit" [disabled]="enviando || !registroForm.valid">
+      {{ enviando ? 'Enviando...' : 'Enviar' }}
+    </button>  
+    <div *ngIf="mostrarMensajeEnviado" class="mensaje-enviado" 
+         style="color: green; background-color: #fff; font-weight: bolder; margin: 2em 0; padding: 1em; font-size: 1em;">
+      EL FORMULARIO SE HA ENVIADO CORRECTAMENTE.
+    </div>
+  </form>
+</div>
+
 
 <div class="image-fija2">
     <div class="center">
@@ -16,34 +49,9 @@
     <a href="https://www.google.com.ar/maps/place/Laboratorio+Bioquimico+PARACELSUS/@-32.9634819,-68.8533782,17z/data=!3m1!4b1!4m6!3m5!1s0x967e0bac113ca9df:0xe61a091376f7dc20!8m2!3d-32.9634819!4d-68.8533782!16s%2Fg%2F11b7jmr1rr?entry=ttu" target="_blank">SAN MARTIN 8035 CARRODILLA LUJAN DE CUYO</a>
     </div>
 </div>
-<div class="centrado">
-    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3347.5235170211026!2d-68.85581962471028!3d-32.96358727274369!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x967e0bac1ac5e81f%3A0xdd7ed8475a312946!2sSan%20Mart%C3%ADn%208035%2C%20Luj%C3%A1n%20de%20Cuyo%2C%20Mendoza!5e0!3m2!1ses-419!2sar!4v1705320270989!5m2!1ses-419!2sar" width="1100" height="300px" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-</div>
-<div class="image-fija3">
-    <h1 class="h1-form">Buzón de sugerencias</h1>
-    <div class="form-container">
-        <form class="form" [formGroup]="registroForm" (ngSubmit)="onSubmit(registroForm)" action="https://formsubmit.co/nataliacandeloro@gmail.com" method="POST">
-            <input type="hidden" name="_captcha" value="false">
-<input type="hidden" name="_next" value=" ">
-            <mat-label>Nombre</mat-label>
-            <mat-form-field>
-                <input matInput formControlName="name" required>
-                <mat-error>El campo es obligatorio.  <br/>Ingresar un nombre valido</mat-error>
-            </mat-form-field>
 
-            <mat-label>Email</mat-label>
-            <mat-form-field>
-                <input matInput formControlName="email" required>
-                <mat-error>El campo es obligatorio. <br/> Ingresar un email váido</mat-error>
-            </mat-form-field>
-            <mat-label>Mensaje</mat-label>
-            <mat-form-field class="example-full-width">
-                <textarea matInput formControlName="message" required rows="4" cols="30"></textarea>
-                <mat-error>El campo es obligatorio</mat-error>
-            </mat-form-field>
-            <button mat-raised-button color="primary">Enviar</button>
-            <div *ngIf="mostrarMensajeEnviado" class="mensaje-enviado" style="color: green; background-color: #fff; font-weight: bolder; margin: 2em 0; padding: 1em; font-size: 1em;">EL FORMULARIO SE HA ENVIADO CORRECTAMENTE.</div>
-
-        </form>    
-    </div>
+<!--
+<div class="espacio">
+  <p class="p-black">Significa que has visitado toda nuestra página, significa mucho para nosotros te esperamos cordialmente para brindarte nuestro amado servicio con mucha vocación.</p>
 </div>
+--> 

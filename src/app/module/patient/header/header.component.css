@@ -3,6 +3,29 @@ hr {
     margin: 0;
 }
 
+.whatsapp-fijo {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 1000; 
+    width: 60px; 
+    height: 60px;
+  }
+
+  .email-fijo {
+    position: fixed;
+    bottom: 100px;
+    right: 30px;
+    z-index: 1000; 
+    width: 60px; 
+    height: 60px;
+  }
+
+
+  img { 
+    width: 60px;
+  }
+
 .content {
     text-align: center;
 }
@@ -153,3 +176,31 @@ form {
       }
   }
   
+  @media (max-width: 768px) {
+    .whatsapp-fijo {
+      width: 50px; 
+      height: 50px;
+      bottom: 3em; 
+      right: 35px;
+    }
+
+    .email-fijo {
+      width: 50px; 
+      height: 50px;
+      bottom: 8em; 
+      right: 35px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .whatsapp-fijo {
+      width: 40px; 
+      bottom: 12em; 
+      right: 30px;
+    }
+    .email-fijo {
+      width: 40px; 
+      bottom: 17em; 
+      right: 30px;
+    }
+  }

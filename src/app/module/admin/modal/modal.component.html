@@ -12,7 +12,7 @@
             <mat-label>DNI del paciente</mat-label>
             <input type="text" class="my-custom-input" id="dni" name="dni" formControlName="dni"
                 matInput placeholder="Ingrese DNI del paciente"  />
-            <mat-error> El DNI es requerido </mat-error>
+            <mat-error> El número de documento debe tener entre 7 y 9 caracteres </mat-error>
         </mat-form-field>
         <mat-form-field class="full-width">
             <mat-label>Ingresar fecha de atención</mat-label>
@@ -31,7 +31,9 @@
         <div  (dragover)="permitirArrastrar($event)"(drop)="soltarArchivo($event)" style="border: 2px dashed #ccc; padding: 20px;">Arrastra y suelta aquí tu archivo PDF</div>
     </div>        
         <div *ngIf="archivoArrastrado" class="file-name">{{ archivoArrastrado.name }}</div>
-        <button class="btn-info" type="button" (click)="subirDocumento()">Subir</button>
+        <button [disabled]="enviando" (click)="onSubmit()">Enviar</button>
+        <p *ngIf="errorMessage">{{ errorMessage }}</p>
+        
         <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
             </form>
         </div>

@@ -14,23 +14,40 @@ export class ModalComponent {
   formPaciente!: FormGroup; 
   nuevoPaciente: any;
   errorMessage: string | null = null;
-  archivoArrastrado!: File ;
+  archivoArrastrado: File | null = null;
+  enviando: boolean = false;  
+submitAttempted: boolean = false;  // Variable para permitir solo un intento de envío
 
+  
   constructor(private firestore: AngularFirestore,
               private panelService: PanelService,
               private fb: FormBuilder,
               private storage: Storage,
               private datePipe: DatePipe) {
-// FORM 
-  this.formPaciente = this.fb.group({
-    name: new FormControl('', Validators.required),
-    dni: new FormControl ('', Validators.required),
-    date: new FormControl('', Validators.required),
-    lab: new FormControl(''),
-    file: new FormControl(null, Validators.required),
-  });
-}
-
+    // FORM 
+    this.formPaciente = this.fb.group({
+      name: new FormControl('', Validators.required),
+      dni: new FormControl('', [
+        Validators.required,
+        Validators.minLength(7),
+        Validators.maxLength(9),
+        Validators.pattern('[a-zA-Z0-9]*'),
+      ]),
+      date: new FormControl('', Validators.required),
+      lab: new FormControl(''),
+      file: new FormControl(null, Validators.required),
+    });
+  
+    this.formPaciente.get('dni')?.valueChanges.subscribe(value => {
+      if (value !== null) {
+        const trimmedValue = value.trim();
+        if (value !== trimmedValue) {
+          this.formPaciente.get('dni')?.setValue(trimmedValue, { emitEvent: false });
+        }
+      }
+    });
+  }
+  
   permitirArrastrar(event: DragEvent) {
     event.preventDefault();
   }
@@ -45,6 +62,7 @@ export class ModalComponent {
       this.errorMessage = 'Por favor, suelta solo archivos PDF.';
     }
   }
+  
   obtenerArchivo(event: DragEvent): File | null {
     const file = event.dataTransfer?.files[0];
     return file || null;
@@ -54,15 +72,25 @@ export class ModalComponent {
     const input = event.target as HTMLInputElement;
     input.value = input.value.toUpperCase();
   }
+
+  onSubmit() {
+    if (this.formPaciente.valid && !this.enviando) {
+      this.enviando = true;  // Desactivar el botón de inmediato
   
-  enviarArchivo(event: any) {
-    const file = event.target.files[0];
-    this.subirArchivo(file);
-    this.archivoArrastrado = file;
+      const file = this.archivoArrastrado;
+      if (file) {
+        this.subirArchivo(file);
+      } else {
+        // Si no hay archivo, mostramos un error y habilitamos el botón para reintentar
+        this.errorMessage = 'Por favor, selecciona un archivo para subir.';
+        this.enviando = false;  // Reactivar el botón en caso de error
+      }
+    }
   }
   
   subirArchivo(file: File) {
-    console.log(file); 
+    this.errorMessage = 'Enviando...';
+  
     const docsRef = ref(this.storage, `pacientesdocs/${file.name}`);
     uploadBytes(docsRef, file)
       .then(snapshot => {
@@ -77,11 +105,17 @@ export class ModalComponent {
           file: downloadURL,
           lab: this.formPaciente.value.lab,
         };
-
+  
+        // Agregar el nuevo documento
         this.agregarNuevoDocumento(nuevoPaciente);
+  
+        // Enviar el documento a Firestore
+        this.subirDocumento();
       })
       .catch(error => {
         console.log(error);
+        this.errorMessage = 'Error al subir archivo. Por favor, inténtelo de nuevo.';
+        this.enviando = false;  // Habilitar el botón solo si hay un error
       });
   }
 
@@ -90,21 +124,38 @@ export class ModalComponent {
       .then(() => {
         console.log('Documento agregado correctamente');
         this.mostrarMensaje('Documento agregado correctamente', true);
-        this.limpiarCampos(); 
+        this.limpiarCampos();
+        this.errorMessage = 'Documento agregado correctamente';
+        
+        // El botón sigue deshabilitado después del éxito (si quieres reactivar, cambia `enviando`)
+        // this.enviando = false;  // Solo si deseas que el botón se habilite de nuevo tras éxito
       })
       .catch(error => {
         console.error('Error al agregar documento:', error);
         this.mostrarMensaje('Error al agregar documento. Por favor, inténtelo de nuevo.', false);
+        this.errorMessage = 'Error al agregar documento. Por favor, inténtelo de nuevo.';
+        this.enviando = false; // Solo habilitamos el botón de nuevo en caso de error
       });
   }
   
+  
+  
   limpiarCampos() {
-      this.formPaciente.reset(); // Esto limpiará todos los campos del FormGroup
-    }
-
+    // Limpia solo los valores del formulario
+    this.formPaciente.reset();
+  
+    // Limpia el archivo arrastrado
+    this.archivoArrastrado = null;
+    
+    // Opcionalmente, puedes habilitar el botón para un nuevo envío en este punto si fuera necesario
+    this.enviando = false; 
+  }
+  
+  
   agregarNuevoDocumento(nuevoPaciente: any) {
     this.nuevoPaciente = nuevoPaciente;
   }
+
 
   mostrarMensaje(mensaje: string | null, exito: boolean) {
     const mensajeElemento = document.createElement('div');
@@ -123,7 +174,8 @@ export class ModalComponent {
     document.body.appendChild(mensajeElemento);
     setTimeout(() => {
       mensajeElemento.remove();
-    }, 1000);
+    }, 1000);    this.errorMessage = mensaje;
+
   }
 
 // CERRAR MODAL

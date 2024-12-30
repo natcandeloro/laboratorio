@@ -1,4 +1,6 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { debounceTime } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 import { LoginService } from '../../autenticacion/services/login.service';
 import { Router } from '@angular/router';
 import { PanelService } from '../service/panel.service';
@@ -29,10 +31,16 @@ export class AdminComponent implements OnInit, OnDestroy{
   dni: string = '';
   name: string = '';
   lab: string = '';
+  fechaDeCarga: string = '';
   totalItems!: number;
   currentPage = 1; 
   itemsPerPage =  20;
   errorMessage: boolean = false;
+  private searchSubject = new Subject<string>();
+ 
+
+  resultados: any[] = [];
+  fechaBusqueda: string = '';
 
   constructor ( private loginService: LoginService,
                 private panelService: PanelService,
@@ -50,7 +58,7 @@ export class AdminComponent implements OnInit, OnDestroy{
       });
     }
     
-    ordenarPorFechaDeCarga(pacientes: any[]): any[] {
+   ordenarPorFechaDeCarga(pacientes: any[]): any[] {
       // Filtra los pacientes con fecha de carga
       const conFecha = pacientes.filter(p => p.fechaDeCarga).sort((a, b) => {
         // Ordena por fecha de carga de manera descendente
@@ -63,6 +71,7 @@ export class AdminComponent implements OnInit, OnDestroy{
       // Combina los arrays, poniendo los pacientes con fecha primero
       return [...conFecha, ...sinFecha];
     }
+    
 
       ngOnInit(): void {
         this.panelService.obtenerDatos().subscribe(pacientes => {
@@ -70,8 +79,14 @@ export class AdminComponent implements OnInit, OnDestroy{
           this.pacientes = this.ordenarPorFechaDeCarga(pacientes);
           console.log(this.pacientes);
         });
-      }
 
+        this.searchSubject.pipe(
+          debounceTime(300)  // Espera 300ms después del último evento
+        ).subscribe(dni => {
+          this.search();
+        });
+      }
+      
     cambiarPagina(page: number) {
       if (page >= 1 && page <= this.totalPages) {
         this.currentPage = page;
@@ -122,11 +137,11 @@ export class AdminComponent implements OnInit, OnDestroy{
 
     // BUSCADOR POR DNI
     search(): void {
-      const data: unknown = {};
       let queryFn: QueryFn<any> = ref => ref; 
-      if (this.dni !== '') {
-        queryFn = ref => ref.where('dni', '==', this.dni);
+      if (this.dni.trim() !== '') {
+        queryFn = ref => ref.where('dni', '==', this.dni.trim());
       }
+  
       this.firestore.collection('pacientes', queryFn).snapshotChanges().subscribe(pacientes => {
         this.pacientes = pacientes.map(paciente => {
           const data = paciente.payload.doc.data();
@@ -138,40 +153,83 @@ export class AdminComponent implements OnInit, OnDestroy{
             return null; 
           }
         }).filter(paciente => paciente !== null);
-        console.log(this.pacientes);
+  
         if (this.pacientes.length === 0) {
           this.errorMessage = true;
           this.pacientes = []; 
         } else {
           this.errorMessage = false;
         }
+  
         this.currentPage = 1; // Resetea a la página 1
       });
-    };
-
-
+    }
     
-    searchLab(): void {
-      const data: unknown = {};
-      let queryFn: QueryFn<any> = ref => ref; 
-      if (this.lab !== '') {
-        queryFn = ref => ref.where('lab', '==', this.lab);
+    searchName(): void {
+      const searchValue = this.name.trim().toLowerCase();
+    
+      if (!searchValue) {
+        console.warn('El valor de búsqueda está vacío. No se aplicará ningún filtro.');
+        this.pacientes = []; // O decide qué hacer si el valor está vacío.
+        return;
       }
-      this.firestore.collection('pacientes', queryFn).snapshotChanges().subscribe(pacientes => {
+    
+      this.firestore.collection('pacientes').snapshotChanges().subscribe(pacientes => {
         this.pacientes = pacientes.map(paciente => {
-          const data = paciente.payload.doc.data();
+          const data = paciente.payload.doc.data() as Paciente; // Especifica el tipo de datos
           const id = paciente.payload.doc.id;
-          if (typeof data === 'object' && data !== null) {
+          if (data && typeof data === 'object') {
             return { id, ...data };
           } else {
             console.error('Los datos del paciente no son un objeto válido:', data);
-            return null; 
+            return null;
           }
-        }).filter(paciente => paciente !== null);
+        }).filter(paciente => {
+          if (paciente !== null) {
+            const name = (paciente.name || '').toLowerCase();
+            return name.startsWith(searchValue);
+          }
+          return false;
+        });
+    
         console.log(this.pacientes);
         this.currentPage = 1; // Resetea a la página 1
       });
-    };
+    }
+
+    searchByFechaDeCarga(): void {
+      if (this.fechaDeCarga.trim() !== '') {
+        const [year, month, day] = this.fechaDeCarga.split('-');
+        const startDate = new Date(Number(year), Number(month) - 1, Number(day), 0, 0, 0, 0); // Inicio del día
+        const endDate = new Date(Number(year), Number(month) - 1, Number(day), 23, 59, 59, 999); // Fin del día
+    
+        let queryFn: QueryFn<any> = ref => 
+          ref.where('fechaDeCarga', '>=', startDate.toISOString())
+             .where('fechaDeCarga', '<=', endDate.toISOString());
+    
+        this.firestore.collection('pacientes', queryFn).snapshotChanges().subscribe(pacientes => {
+          this.pacientes = pacientes.map(paciente => {
+            const data = paciente.payload.doc.data();
+            const id = paciente.payload.doc.id;
+            if (typeof data === 'object' && data !== null) {
+              return { id, ...data };
+            } else {
+              console.error('Los datos del paciente no son un objeto válido:', data);
+              return null; 
+            }
+          }).filter(paciente => paciente !== null);
+    
+          if (this.pacientes.length === 0) {
+            this.errorMessage = true;
+            this.pacientes = []; 
+          } else {
+            this.errorMessage = false;
+          }
+    
+          this.currentPage = 1; // Resetea a la página 1
+        });
+      }
+    }
     
     // ELIMINA PACIENTE
     eliminarPaciente(id: string, paciente: Paciente) {

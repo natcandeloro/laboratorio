@@ -19,6 +19,13 @@ export class HomeComponent {
 		config.showNavigationIndicators = true;
 	}
 
+whatsAppRedirect() {
+	const phoneNumber = '5492616529790'; 
+	const message = 'Hola! Me gustaría consultar sobre las obras sociales que aceptan.';
+	const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+	window.open(whatsappUrl, '_blank');
+  }
+
 	navigateTo(route: string): void {
 		this.router.navigateByUrl(route).then(() => {
 			window.scrollTo(0, 0);

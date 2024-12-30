@@ -1,10 +1,87 @@
 .container {
-    margin: 7em;
+    margin: 1em 7em;
     position: relative;
     display: flex;
     flex-direction: column;
     align-content: space-around;
     align-items: center;
+}
+
+/*BOTON CERRAR SESION*/ 
+.Btn {
+    
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 45px;
+    height: 45px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition-duration: 0.3s;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
+    background-color: RGB(29, 185, 84);
+    margin-top: 1.5em;
+    margin-left: 1.5em;
+  }
+  
+  /* plus sign */
+  .sign {
+    width: 100%;
+    transition-duration: 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .sign svg {
+    width: 18px;
+  }
+  
+  .sign svg path {
+    fill: black;
+  }
+  /* text */
+  .text {
+    position: absolute;
+    right: 0%;
+    width: 0%;
+    opacity: 0;
+    color: black;
+    font-size: 1.2em;
+    font-weight: 600;
+    transition-duration: 0.3s;
+  }
+  /* hover effect on button width */
+  .Btn:hover {
+    width: 145px;
+    border-radius: 40px;
+    transition-duration: 0.3s;
+  }
+  
+  .Btn:hover .sign {
+    width: 30%;
+    transition-duration: 0.3s;
+    padding-left: 20px;
+  }
+  /* hover effect button's text */
+  .Btn:hover .text {
+    opacity: 1;
+    width: 70%;
+    transition-duration: 0.3s;
+    padding-right: 10px;
+  }
+  /* button click effect*/
+  .Btn:active {
+    transform: translate(2px, 2px);
+  }
+  
+
+.mat-mdc-form-field-infix  {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
 }
 
 .diseno {
@@ -16,10 +93,11 @@ h1 {
     font-size: 3em;
 }
 
-.search input {
-    margin: 1em;
-    border-radius: 5px;
+.flex { 
+    display: flex;
 }
+
+
 
 .mat-form-field {
     height: auto !important;
@@ -48,16 +126,6 @@ background-color: #F0F0F0;
 
 .mat-form-field {
     height: auto !important;
-}
-
-.btn-logout {
-    position: absolute;
-    top: 0;
-    right: 1em;
-    border-radius: 10px;
-    border: #7a7a7a;
-    padding: 10px;
-    margin: 1em;
 }
 
 .btn-subir {
