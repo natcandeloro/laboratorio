@@ -1,0 +1,26 @@
+<!-- analysis.component.html -->
+<div class="photo-as">
+    <p class="p-as">CONOCE MÁS SOBRE TUS ANÁLISIS</p>
+</div>
+
+<div class="container">
+    <div class="row">
+        @for (category of analysisCategories; track category.title) {
+            <div class="col-4 col-verde">
+                <figure>
+                    <h3>{{category.title}}</h3>
+                    <p class="description">{{category.description}}</p>
+                    <div class="details-container">
+                        <ul class="details-list">
+                            @for (study of category.details; track study.name) {
+                                <li (click)="openStudyDialog(study)" class="study-item">
+                                    {{study.name}}
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </figure>
+            </div>
+        }
+    </div>
+</div>

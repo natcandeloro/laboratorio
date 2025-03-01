@@ -1,0 +1,217 @@
+/* analysis.component.css */
+.container {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.details-container {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 8px;
+    padding: 15px;
+    margin-top: 15px;
+    width: 100%;
+    position: relative;
+    z-index: 2;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.details-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+    color: #424242;
+    font-family: 'Poppins', sans-serif;
+}
+
+.details-list li {
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.details-list li:last-child {
+    border-bottom: none;
+}
+
+.details-list li:hover {
+    padding-left: 5px;
+    background-color: rgba(27, 195, 117, 0.05);
+}
+
+h3 {
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    font-size: 24px;
+    margin: 15px 0;
+    position: relative;
+    z-index: 2;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+/* Añadir a analysis.component.css */
+.study-item {
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 10px !important;
+    border-radius: 4px;
+}
+
+.study-item:hover {
+    background-color: rgba(27, 195, 117, 0.1);
+    padding-left: 15px !important;
+}
+
+
+.modal-description {
+    font-family: 'Poppins', sans-serif;
+    white-space: pre-wrap;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #424242;
+    margin: 0;
+}
+
+.modal-title {
+    font-family: 'Poppins', sans-serif;
+    color: white;
+    margin: 0;
+}
+
+.description {
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 2;
+    line-height: 1.5;
+}
+
+.photo-as {
+    background-image: linear-gradient(to bottom, 
+        rgba(27, 195, 117, 0.2), 
+        rgba(27, 195, 117, 0.2)), 
+        url('../../../../../assets/statics/analisis.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    height: 20em;
+    text-align: center;
+    color: #fff;
+    padding: 3em;
+    margin-bottom: 4em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.p-as {
+    color: #fff;
+    font-family: 'Poppins';
+    text-align: center;
+    font-size: 32px;
+    line-height: 1.5;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    padding: 20px 0;
+}
+
+.col-verde {
+    margin: 15px;
+    width: 300px;
+    height: auto;
+    min-height: 320px;
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: #1BC375;
+    transition: transform 0.3s ease;
+}
+
+.col-verde:hover {
+    transform: translateY(-5px);
+}
+
+.whatsapp-button {
+    background-color: #1BC375;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    padding: 15px 30px;
+    margin: 30px auto;
+    transition: all 0.3s ease;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+    display: block;
+}
+
+.whatsapp-button:hover {
+    background-color: #18a865;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(27, 195, 117, 0.3);
+}
+
+h1 {
+    font-size: 36px;
+    font-family: 'Nunito Sans', sans-serif;
+    font-weight: 300;
+    margin: 2rem 0;
+    color: #424242;
+    text-transform: uppercase;
+}
+
+@media (max-width: 880px) {
+    .col-verde {
+        width: calc(100% - 30px);
+        margin: 10px 15px;
+    }
+    
+    h3 {
+        font-size: 20px;
+    }
+    
+    .description {
+        font-size: 14px;
+    }
+
+    .image-fija {
+        height: 15em;
+    }
+
+    h1 {
+        font-size: 28px;
+    }
+}
+
+@media (max-width: 768px) {
+    .p-as {
+        font-size: 24px;
+    }
+    .photo-as {
+        height: 15em;
+        padding: 2em;
+    }
+}
+
+@media (max-width: 500px) {
+    .details-list li {
+        font-size: 14px;
+    }
+
+    .whatsapp-button {
+        font-size: 16px;
+        padding: 12px 24px;
+    }
+}

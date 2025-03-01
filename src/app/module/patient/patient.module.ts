@@ -13,6 +13,7 @@ import { MaterialModule } from '../material/material.module';
 import { DescargaComponent } from './pages/descarga/descarga.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { HttpClientModule } from '@angular/common/http';
+import { ModaAnalisisComponent } from './pages/moda-analisis/moda-analisis.component';
 @NgModule({
   declarations: [
     HomeComponent,
@@ -20,6 +21,7 @@ import { HttpClientModule } from '@angular/common/http';
     ContactComponent,
     PatientComponent,
     DescargaComponent,
+    ModaAnalisisComponent
   ],
   
   imports: [

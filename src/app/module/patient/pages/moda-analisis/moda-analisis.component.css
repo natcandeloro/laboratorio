@@ -1,0 +1,14 @@
+:host {
+    display: block;
+    padding: 20px;
+    max-width: 600px;
+  }
+  h2 {
+    color: #1BC375;
+    font-family: 'Poppins', sans-serif;
+    margin-bottom: 20px;
+  }
+  mat-dialog-content {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+  }
