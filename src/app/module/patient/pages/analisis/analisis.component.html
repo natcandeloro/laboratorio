@@ -1,26 +1,36 @@
-<!-- analysis.component.html -->
 <div class="photo-as">
-    <p class="p-as">CONOCE MÁS SOBRE TUS ANÁLISIS</p>
+    <div class="header-content">
+        <p class="p-as">CONOCE MÁS SOBRE TUS ANÁLISIS</p>
+        <p class="p-subtitle">Encuentra toda la información sobre los estudios que realizamos en nuestro laboratorio</p>
+    </div>
 </div>
 
 <div class="container">
+    <div class="medical-note">
+        <div class="note-border"></div>
+        <p>RECUERDE SIEMPRE CONSULTAR A SU MÉDICO</p>
+    </div>
     <div class="row">
         @for (category of analysisCategories; track category.title) {
-            <div class="col-4 col-verde">
-                <figure>
+            <div class="category-card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <i class="{{getIconForCategory(category.title)}}"></i>
+                    </div>
                     <h3>{{category.title}}</h3>
                     <p class="description">{{category.description}}</p>
-                    <div class="details-container">
-                        <ul class="details-list">
-                            @for (study of category.details; track study.name) {
-                                <li (click)="openStudyDialog(study)" class="study-item">
-                                    {{study.name}}
-                                </li>
-                            }
-                        </ul>
-                    </div>
-                </figure>
+                </div>
+                <div class="details-container">
+                    <ul class="details-list">
+                        @for (study of category.details; track study.name) {
+                            <li (click)="openStudyDialog(study)" class="study-item">
+                                {{study.name}}
+                            </li>
+                        }
+                    </ul>
+                </div>
             </div>
         }
     </div>
+    
 </div>

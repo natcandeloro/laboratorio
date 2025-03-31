@@ -226,4 +226,23 @@ export class AnalisisComponent {
       panelClass: 'study-dialog'
     });
   }
+
+  getIconForCategory(category: string): string {
+    switch (category.toUpperCase()) {
+      case 'HEMATOLOGÍA':
+        return 'fas fa-tint'; // Icono de gota de sangre
+      case 'BIOQUÍMICA':
+        return 'fas fa-flask'; // Icono de tubo de ensayo
+      case 'INMUNOLOGÍA Y SEROLOGÍA':
+        return 'fas fa-shield-alt'; // Icono de escudo para inmunidad
+      case 'MICROBIOLOGÍA':
+        return 'fas fa-bacteria'; // Icono de bacteria
+      case 'HORMONAS Y ENDOCRINOLOGÍA':
+        return 'fas fa-chart-line'; // Icono de gráfico para niveles hormonales
+      case 'MARCADORES TUMORALES':
+        return 'fas fa-search'; // Icono de búsqueda para detección
+      default:
+        return 'fas fa-vial'; // Icono predeterminado para análisis clínicos
+    }
+}
 }

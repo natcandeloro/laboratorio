@@ -14,6 +14,7 @@ import { DescargaComponent } from './pages/descarga/descarga.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { HttpClientModule } from '@angular/common/http';
 import { ModaAnalisisComponent } from './pages/moda-analisis/moda-analisis.component';
+import { ObrasSocialesComponent } from "./pages/obras-sociales/obras-sociales.component";
 @NgModule({
   declarations: [
     HomeComponent,
@@ -21,7 +22,9 @@ import { ModaAnalisisComponent } from './pages/moda-analisis/moda-analisis.compo
     ContactComponent,
     PatientComponent,
     DescargaComponent,
-    ModaAnalisisComponent
+    ModaAnalisisComponent,
+    ObrasSocialesComponent
+
   ],
   
   imports: [
@@ -34,7 +37,7 @@ import { ModaAnalisisComponent } from './pages/moda-analisis/moda-analisis.compo
     FormsModule,
     MaterialModule,
     MatToolbarModule,
-    HttpClientModule
-  ]
+    HttpClientModule,
+]
 })
 export class PatientModule { }

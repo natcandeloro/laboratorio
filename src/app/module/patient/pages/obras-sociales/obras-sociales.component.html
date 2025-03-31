@@ -1,0 +1,76 @@
+<div class="buscador-container">
+    <div class="buscador-wrapper">
+      <h1>OBRAS SOCIALES</h1>
+      
+      <div class="search-box">
+        <input 
+          type="text" 
+          [(ngModel)]="searchTerm" 
+          (input)="search()" 
+          placeholder="Buscar obra social o plan..."
+          class="search-input"
+        />
+        <button *ngIf="searchTerm" (click)="clearSearch()" class="clear-button">
+          <i class="fa fa-times"></i>
+        </button>
+      </div>
+      
+      <div class="results-container" *ngIf="filteredObrasSociales.length > 0 && showResults">
+        <div class="results-count">
+          Se encontraron {{ filteredObrasSociales.length }} resultados
+        </div>
+        
+        <div class="results-list">
+          <div *ngFor="let obra of filteredObrasSociales" class="obra-social-item">
+            <div class="obra-social-header" (click)="hasPlanesOrEntidades(obra) ? togglePlanes(obra) : null" [ngClass]="{'clickable': hasPlanesOrEntidades(obra)}">
+              <h3>{{ obra.nombre }}</h3>
+              <div class="info-container">
+                <span *ngIf="!hasPlanesOrEntidades(obra)" class="acepta-todos"></span>
+                <span *ngIf="hasPlanesOrEntidades(obra)" class="toggle-icon">{{ selectedObraSocial === obra && showPlanes ? '▼' : '▶' }}</span>
+              </div>
+            </div>
+            
+            <div class="obra-social-details" *ngIf="selectedObraSocial === obra && showPlanes && hasPlanesOrEntidades(obra)">
+              <div *ngIf="obra.planes && obra.planes.length > 0">
+                <h4>Planes:</h4>
+                <div class="planes-grid">
+                  <span *ngFor="let plan of obra.planes" class="plan-item">{{ plan }}</span>
+                </div>
+              </div>
+              
+              <div *ngIf="obra.entidades && obra.entidades.length > 0">
+                <h4>Entidades:</h4>
+                <div class="planes-grid">
+                  <span *ngFor="let entidad of obra.entidades" class="plan-item entidad-item">{{ entidad }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="no-results" *ngIf="filteredObrasSociales.length === 0 && showResults">
+        <p>No se encontraron obras sociales que coincidan con tu búsqueda.</p>
+      </div>    
+      <div class="logos-container">
+        <div class="row">
+          <div class="col-4 col-os">
+            <img src="../../../../../../assets/statics/osde.jpg" alt="Logo Osde" class="logos"/>
+            <img src="../../../../../../assets/statics/medife.png" alt="Logo Medife" class="logos"/>
+            <img src="../../../../../../assets/statics/descarga.png" alt="Logo PAMI" class="logos"/>
+          </div>
+          <div class="col-4 col-os">
+            <img src="../../../../../../assets/statics/swt.jpg" alt="Logo Swiss Medical" class="logos"/>
+            <img src="../../../../../../assets/statics/galeno.png" alt="Logo Galeno" class="logos"/>
+            <img src="../../../../../../assets/statics/descarga.jpeg" alt="Logo Osep" class="logos"/>
+          </div>
+          <div class="col-4 col-os">
+            <img src="../../../../../../assets/statics/omint.png" alt="Logo Omint" class="logos"/>
+            <img src="../../../../../../assets/statics/sancor.png" alt="Logo Sancor Salud" class="logos"/>
+            <img src="../../../../../../assets/statics/medicus.jpeg" alt="Logo Medicus" class="logos"/>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
