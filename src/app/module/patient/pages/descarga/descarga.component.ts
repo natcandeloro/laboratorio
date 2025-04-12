@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore, QueryFn} from '@angular/fire/compat/firestore';
 import { FormsModule, FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 interface Paciente {
   id: number;
@@ -78,26 +78,157 @@ descargarArchivo() {
     throw new Error('Method not implemented.');
   }
  
-      // BUSCADOR POR DNI
-      search(): void {
-        let queryFn: QueryFn<any> = ref => ref; 
-        if (this.dni !== '') {
-          queryFn = ref => ref.where('dni', '==', this.dni);
-        } 
-        this.pacientes$ = this.firestore.collection('pacientes', queryFn).valueChanges();
-
-        this.pacientes$.subscribe(pacientes => {
-          if (pacientes.length === 0) {
-              this.errorMessage = "No se encontraron pacientes con el DNI especificado.";
-              setTimeout(() => {
-                this.errorMessage = '';
-            }, 8000);
-          } else {
-              this.errorMessage = ''; // Limpiar el mensaje de error si se encuentran pacientes
-          }
-      });
+  search(): void {
+    let queryFn: QueryFn<any> = ref => ref;
+    
+    if (this.dni !== '') {
+      queryFn = ref => ref.where('dni', '==', this.dni);
+    }
+    
+    // Obtenemos los datos y los ordenamos por fecha (más recientes primero)
+    this.pacientes$ = this.firestore.collection('pacientes', queryFn)
+      .valueChanges()
+      .pipe(
+        map((pacientes: any[]) => {
+          // Depurar las fechas que llegan de la base de datos
+          console.log('Fechas originales de la base de datos:');
+          pacientes.forEach(p => {
+            console.log(`Fecha original: ${p.date}, Tipo: ${typeof p.date}`);
+          });
+          
+          return pacientes.sort((a: any, b: any) => {
+            // Verificar si los objetos y la propiedad date existen
+            const fechaA = typeof a === 'object' && a !== null && 'date' in a ? a.date : '';
+            const fechaB = typeof b === 'object' && b !== null && 'date' in b ? b.date : '';
+            
+            // Para comparar, convertimos ambas fechas a objetos Date
+            let dateA, dateB;
+            
+            // Si la fecha incluye barras (formato DD/MM/YYYY)
+            if (typeof fechaA === 'string' && fechaA.includes('/')) {
+              const partesA = fechaA.split('/');
+              // Formato DD/MM/YYYY
+              if (partesA.length === 3) {
+                const diaA = parseInt(partesA[0]);
+                const mesA = parseInt(partesA[1]) - 1; // Meses en JS: 0-11
+                const anioA = parseInt(partesA[2]);
+                dateA = new Date(anioA, mesA, diaA);
+              } else {
+                dateA = new Date(fechaA);
+              }
+            } else {
+              dateA = fechaA ? new Date(fechaA) : new Date(0);
+            }
+            
+            // Mismo proceso para la segunda fecha
+            if (typeof fechaB === 'string' && fechaB.includes('/')) {
+              const partesB = fechaB.split('/');
+              // Formato DD/MM/YYYY
+              if (partesB.length === 3) {
+                const diaB = parseInt(partesB[0]);
+                const mesB = parseInt(partesB[1]) - 1; // Meses en JS: 0-11
+                const anioB = parseInt(partesB[2]);
+                dateB = new Date(anioB, mesB, diaB);
+              } else {
+                dateB = new Date(fechaB);
+              }
+            } else {
+              dateB = fechaB ? new Date(fechaB) : new Date(0);
+            }
+            
+            // Comparar las fechas y ordenar descendente (más recientes primero)
+            return dateB.getTime() - dateA.getTime();
+          });
+        })
+      );
+    
+    this.pacientes$.subscribe(pacientes => {
+      if (pacientes.length === 0) {
+          this.errorMessage = "No se encontraron pacientes con el DNI especificado.";
+          setTimeout(() => {
+            this.errorMessage = '';
+        }, 8000);
+      } else {
+          this.errorMessage = '';
+          
+          // Depurar las fechas después del formateo
+          console.log('Fechas después del formateo:');
+          pacientes.forEach(p => {
+            console.log(`Fecha original: ${p.date}, Fecha formateada: ${this.formatearFecha(p.date)}`);
+          });
       }
+    });
+  }
 
 
+  formatearFecha(dateString: string): string {
+    if (!dateString) return '';
+    
+    // Si la fecha viene en formato DD/MM/YYYY
+    if (typeof dateString === 'string' && dateString.includes('/')) {
+      const partes = dateString.split('/');
+      if (partes.length === 3) {
+        let dia = parseInt(partes[0]);
+        const mes = parseInt(partes[1]) - 1; 
+        const anio = parseInt(partes[2]);
 
+        const meses = [
+          'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio',
+          'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'
+        ];
+        
+        return `${dia} de ${meses[mes]} de ${anio}`;
+      }
+    }
+    
+    try {
+      // Crear la fecha y añadir un día para compensar
+      const fecha = new Date(dateString);
+      
+      // Si la fecha no es válida, retornar el string original
+      if (isNaN(fecha.getTime())) {
+        return dateString;
+      }
+      
+      // Añadir un día para compensar el problema
+      fecha.setDate(fecha.getDate() + 1);
+      
+      // Arreglo con los nombres de los meses en español
+      const meses = [
+        'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio',
+        'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'
+      ];
+      
+      const dia = fecha.getDate();
+      const mes = meses[fecha.getMonth()];
+      const anio = fecha.getFullYear();
+      
+      return `${dia} de ${mes} de ${anio}`;
+    } catch (e) {
+      console.error('Error al formatear fecha:', e);
+      return dateString;
+    }
+  }
+  
+
+  formatearFechaAlternativo(dateString: string): string {
+    if (!dateString) return '';
+    
+    // Si la fecha ya viene en formato de barras (DD/MM/YYYY o similar)
+    if (typeof dateString === 'string' && dateString.includes('/')) {
+      const partes = dateString.split('/');
+      
+      if (partes.length === 3) {
+        // Convertimos cada parte a número y luego formateamos
+        let dia = parseInt(partes[0]).toString().padStart(2, '0');
+        let mes = parseInt(partes[1]).toString().padStart(2, '0');
+        const anio = partes[2];
+        
+        return `${dia}/${mes}/${anio}`;
+      }
+    }
+    
+    // Si el formato no es reconocible, usar el método original
+    return this.formatearFecha(dateString);
+  }
 }
