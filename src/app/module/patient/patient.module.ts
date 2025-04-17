@@ -15,6 +15,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { HttpClientModule } from '@angular/common/http';
 import { ModaAnalisisComponent } from './pages/moda-analisis/moda-analisis.component';
 import { ObrasSocialesComponent } from "./pages/obras-sociales/obras-sociales.component";
+import { EncuestaComponent } from './pages/encuesta/encuesta.component';
+
 @NgModule({
   declarations: [
     HomeComponent,
@@ -23,8 +25,8 @@ import { ObrasSocialesComponent } from "./pages/obras-sociales/obras-sociales.co
     PatientComponent,
     DescargaComponent,
     ModaAnalisisComponent,
-    ObrasSocialesComponent
-
+    ObrasSocialesComponent,
+    EncuestaComponent
   ],
   
   imports: [

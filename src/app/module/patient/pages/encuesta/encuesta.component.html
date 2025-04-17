@@ -1,0 +1,550 @@
+    <div class="image-fija">      
+        <h1>Encuesta de Satisfacción</h1>
+        <p>Su opinión es importante para nosotros. Por favor, complete esta encuesta para ayudarnos a mejorar nuestros servicios.</p></div>
+    <div class="survey-container">
+    
+    <div *ngIf="showSuccess" class="success-message">
+      <p>¡Gracias por completar la encuesta! Sus respuestas han sido enviadas correctamente.</p>
+    </div>
+  
+    <div *ngIf="errorMessage" class="error-message">
+      <p>{{ errorMessage }}</p>
+    </div>
+  
+    <form [formGroup]="surveyForm" (ngSubmit)="onSubmit()">
+      <!-- 1. Información General -->
+      <div class="section">
+        <h2>1. Información General</h2>
+  
+        <div class="form-group">
+          <label>Edad:</label>
+          <div class="radio-group">
+            <div class="radio-option">
+              <input type="radio" id="edad1" formControlName="edad" value="Menos de 18 años">
+              <label for="edad1">Menos de 18 años</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="edad2" formControlName="edad" value="18-30 años">
+              <label for="edad2">18-30 años</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="edad3" formControlName="edad" value="31-45 años">
+              <label for="edad3">31-45 años</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="edad4" formControlName="edad" value="46-60 años">
+              <label for="edad4">46-60 años</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="edad5" formControlName="edad" value="Más de 60 años">
+              <label for="edad5">Más de 60 años</label>
+            </div>
+          </div>
+          <div *ngIf="submitted && surveyForm.get('edad')?.errors?.['required']" class="validation-error">
+            Por favor, seleccione una opción
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label>¿Es la primera vez que visita nuestro laboratorio?</label>
+          <div class="radio-group">
+            <div class="radio-option">
+              <input type="radio" id="visita1" formControlName="primeraVisita" value="Sí">
+              <label for="visita1">Sí</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="visita2" formControlName="primeraVisita" value="No">
+              <label for="visita2">No</label>
+            </div>
+          </div>
+          <div *ngIf="submitted && surveyForm.get('primeraVisita')?.errors?.['required']" class="validation-error">
+            Por favor, seleccione una opción
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label>¿En qué departamento vive?</label>
+          <div class="radio-group">
+            <div *ngFor="let depto of departamentos; let i = index" class="radio-option">
+              <input type="radio" [id]="'depto' + i" formControlName="departamento" [value]="depto">
+              <label [for]="'depto' + i">{{ depto }}</label>
+            </div>
+          </div>
+          <div *ngIf="mostrarOtroDepartamento()">
+            <label for="otroDepartamento">Especifique:</label>
+            <input type="text" id="otroDepartamento" formControlName="otroDepartamento" class="form-control">
+          </div>
+          <div *ngIf="submitted && surveyForm.get('departamento')?.errors?.['required']" class="validation-error">
+            Por favor, seleccione una opción
+          </div>
+        </div>
+      </div>
+  
+      <!-- 2. Atención al Público -->
+      <div class="section">
+        <h2>2. Atención al Público</h2>
+  
+        <div class="form-group">
+          <label>¿Cómo calificaría la amabilidad y profesionalismo del personal que lo atendió?</label>
+          <div class="radio-group">
+            <div class="radio-option">
+              <input type="radio" id="amabilidad1" formControlName="amabilidad" value="Excelente">
+              <label for="amabilidad1">Excelente</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="amabilidad2" formControlName="amabilidad" value="Bueno">
+              <label for="amabilidad2">Bueno</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="amabilidad3" formControlName="amabilidad" value="Regular">
+              <label for="amabilidad3">Regular</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="amabilidad4" formControlName="amabilidad" value="Malo">
+              <label for="amabilidad4">Malo</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="amabilidad5" formControlName="amabilidad" value="Muy malo">
+              <label for="amabilidad5">Muy malo</label>
+            </div>
+          </div>
+          <div *ngIf="submitted && surveyForm.get('amabilidad')?.errors?.['required']" class="validation-error">
+            Por favor, seleccione una opción
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label>¿El tiempo de espera para ser atendido fue razonable?</label>
+          <div class="radio-group">
+            <div class="radio-option">
+              <input type="radio" id="tiempoEspera1" formControlName="tiempoEspera" value="Muy corto">
+              <label for="tiempoEspera1">Muy corto</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="tiempoEspera2" formControlName="tiempoEspera" value="Adecuado">
+              <label for="tiempoEspera2">Adecuado</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="tiempoEspera3" formControlName="tiempoEspera" value="Largo">
+              <label for="tiempoEspera3">Largo</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="tiempoEspera4" formControlName="tiempoEspera" value="Muy largo">
+              <label for="tiempoEspera4">Muy largo</label>
+            </div>
+          </div>
+          <div *ngIf="submitted && surveyForm.get('tiempoEspera')?.errors?.['required']" class="validation-error">
+            Por favor, seleccione una opción
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label>¿El personal resolvió sus dudas o consultas de manera clara?</label>
+          <div class="radio-group">
+            <div class="radio-option">
+              <input type="radio" id="resolucionDudas1" formControlName="resolucionDudas" value="Siempre">
+              <label for="resolucionDudas1">Siempre</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="resolucionDudas2" formControlName="resolucionDudas" value="Casi siempre">
+              <label for="resolucionDudas2">Casi siempre</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="resolucionDudas3" formControlName="resolucionDudas" value="A veces">
+              <label for="resolucionDudas3">A veces</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="resolucionDudas4" formControlName="resolucionDudas" value="Rara vez">
+              <label for="resolucionDudas4">Rara vez</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="resolucionDudas5" formControlName="resolucionDudas" value="Nunca">
+              <label for="resolucionDudas5">Nunca</label>
+            </div>
+          </div>
+          <div *ngIf="submitted && surveyForm.get('resolucionDudas')?.errors?.['required']" class="validation-error">
+            Por favor, seleccione una opción
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label>¿Qué tan limpia y cómoda encontró la sala de espera y las instalaciones?</label>
+          <div class="radio-group">
+            <div class="radio-option">
+              <input type="radio" id="limpiezaComodidad1" formControlName="limpiezaComodidad" value="Muy limpia y cómoda">
+              <label for="limpiezaComodidad1">Muy limpia y cómoda</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="limpiezaComodidad2" formControlName="limpiezaComodidad" value="Aceptable">
+              <label for="limpiezaComodidad2">Aceptable</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="limpiezaComodidad3" formControlName="limpiezaComodidad" value="Necesita mejoras">
+              <label for="limpiezaComodidad3">Necesita mejoras</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="limpiezaComodidad4" formControlName="limpiezaComodidad" value="Deficiente">
+              <label for="limpiezaComodidad4">Deficiente</label>
+            </div>
+          </div>
+          <div *ngIf="submitted && surveyForm.get('limpiezaComodidad')?.errors?.['required']" class="validation-error">
+            Por favor, seleccione una opción
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="comentariosAtencion">Comentarios adicionales sobre la atención al público (opcional):</label>
+          <textarea id="comentariosAtencion" formControlName="comentariosAtencion" rows="3" class="form-control"></textarea>
+        </div>
+      </div>
+  
+      <!-- 3. Comunicación con los Pacientes -->
+      <div class="section">
+        <h2>3. Comunicación con los Pacientes</h2>
+  
+        <div class="form-group">
+          <label>¿Recibió información clara sobre los procedimientos o estudios que se realizaría?</label>
+          <div class="radio-group">
+            <div class="radio-option">
+              <input type="radio" id="informacionProcedimientos1" formControlName="informacionProcedimientos" value="Sí, completamente">
+              <label for="informacionProcedimientos1">Sí, completamente</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="informacionProcedimientos2" formControlName="informacionProcedimientos" value="Parcialmente">
+              <label for="informacionProcedimientos2">Parcialmente</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="informacionProcedimientos3" formControlName="informacionProcedimientos" value="No, faltó información">
+              <label for="informacionProcedimientos3">No, faltó información</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="informacionProcedimientos4" formControlName="informacionProcedimientos" value="No recibí ninguna explicación">
+              <label for="informacionProcedimientos4">No recibí ninguna explicación</label>
+            </div>
+          </div>
+          <div *ngIf="submitted && surveyForm.get('informacionProcedimientos')?.errors?.['required']" class="validation-error">
+            Por favor, seleccione una opción
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label>¿El personal le informó sobre los tiempos estimados para la entrega de resultados?</label>
+          <div class="radio-group">
+            <div class="radio-option">
+              <input type="radio" id="informacionTiemposEntrega1" formControlName="informacionTiemposEntrega" value="Sí, claramente">
+              <label for="informacionTiemposEntrega1">Sí, claramente</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="informacionTiemposEntrega2" formControlName="informacionTiemposEntrega" value="Sí, pero no fue claro">
+              <label for="informacionTiemposEntrega2">Sí, pero no fue claro</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="informacionTiemposEntrega3" formControlName="informacionTiemposEntrega" value="No me informaron">
+              <label for="informacionTiemposEntrega3">No me informaron</label>
+            </div>
+          </div>
+          <div *ngIf="submitted && surveyForm.get('informacionTiemposEntrega')?.errors?.['required']" class="validation-error">
+            Por favor, seleccione una opción
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label>¿Se sintió escuchado/a y respetado/a durante su interacción con el personal?</label>
+          <div class="radio-group">
+            <div class="radio-option">
+              <input type="radio" id="escuchaRespeto1" formControlName="escuchaRespeto" value="Totalmente">
+              <label for="escuchaRespeto1">Totalmente</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="escuchaRespeto2" formControlName="escuchaRespeto" value="En su mayoría">
+              <label for="escuchaRespeto2">En su mayoría</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="escuchaRespeto3" formControlName="escuchaRespeto" value="Solo en parte">
+              <label for="escuchaRespeto3">Solo en parte</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="escuchaRespeto4" formControlName="escuchaRespeto" value="No me sentí respetado/a">
+              <label for="escuchaRespeto4">No me sentí respetado/a</label>
+            </div>
+          </div>
+          <div *ngIf="submitted && surveyForm.get('escuchaRespeto')?.errors?.['required']" class="validation-error">
+            Por favor, seleccione una opción
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="comentariosComunicacion">Comentarios adicionales sobre la comunicación (opcional):</label>
+          <textarea id="comentariosComunicacion" formControlName="comentariosComunicacion" rows="3" class="form-control"></textarea>
+        </div>
+      </div>
+  
+      <!-- 4. Aranceles y Medios de Pago -->
+      <div class="section">
+        <h2>4. Aranceles y Medios de Pago</h2>
+  
+        <div class="form-group">
+          <label>¿Considera que los costos de los servicios son claros y transparentes?</label>
+          <div class="radio-group">
+            <div class="radio-option">
+              <input type="radio" id="claridadCostos1" formControlName="claridadCostos" value="Muy claros">
+              <label for="claridadCostos1">Muy claros</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="claridadCostos2" formControlName="claridadCostos" value="Algo claros">
+              <label for="claridadCostos2">Algo claros</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="claridadCostos3" formControlName="claridadCostos" value="Poco claros">
+              <label for="claridadCostos3">Poco claros</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="claridadCostos4" formControlName="claridadCostos" value="Nada claros">
+              <label for="claridadCostos4">Nada claros</label>
+            </div>
+          </div>
+          <div *ngIf="submitted && surveyForm.get('claridadCostos')?.errors?.['required']" class="validation-error">
+            Por favor, seleccione una opción
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label>¿Los precios de los estudios le parecieron razonables en relación con la calidad del servicio?</label>
+          <div class="radio-group">
+            <div class="radio-option">
+              <input type="radio" id="razonabilidadPrecios1" formControlName="razonabilidadPrecios" value="Muy razonables">
+              <label for="razonabilidadPrecios1">Muy razonables</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="razonabilidadPrecios2" formControlName="razonabilidadPrecios" value="Aceptables">
+              <label for="razonabilidadPrecios2">Aceptables</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="razonabilidadPrecios3" formControlName="razonabilidadPrecios" value="Algo elevados">
+              <label for="razonabilidadPrecios3">Algo elevados</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="razonabilidadPrecios4" formControlName="razonabilidadPrecios" value="Muy elevados">
+              <label for="razonabilidadPrecios4">Muy elevados</label>
+            </div>
+          </div>
+          <div *ngIf="submitted && surveyForm.get('razonabilidadPrecios')?.errors?.['required']" class="validation-error">
+            Por favor, seleccione una opción
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label>¿Tuvo alguna dificultad para realizar el pago?</label>
+          <div class="radio-group">
+            <div class="radio-option">
+              <input type="radio" id="dificultadPago1" formControlName="dificultadPago" value="Ninguna dificultad">
+              <label for="dificultadPago1">Ninguna dificultad</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="dificultadPago2" formControlName="dificultadPago" value="Poca dificultad">
+              <label for="dificultadPago2">Poca dificultad</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="dificultadPago3" formControlName="dificultadPago" value="Bastante dificultad">
+              <label for="dificultadPago3">Bastante dificultad</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="dificultadPago4" formControlName="dificultadPago" value="Mucha dificultad">
+              <label for="dificultadPago4">Mucha dificultad</label>
+            </div>
+          </div>
+          <div *ngIf="submitted && surveyForm.get('dificultadPago')?.errors?.['required']" class="validation-error">
+            Por favor, seleccione una opción
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label>¿Qué medios de pago utilizó? (Marque todas las opciones que apliquen)</label>
+          <div formGroupName="mediosPago" class="checkbox-group">
+            <div class="checkbox-option">
+              <input type="checkbox" id="efectivo" formControlName="efectivo">
+              <label for="efectivo">Efectivo</label>
+            </div>
+            <div class="checkbox-option">
+              <input type="checkbox" id="debito" formControlName="debito">
+              <label for="debito">Tarjeta de débito</label>
+            </div>
+            <div class="checkbox-option">
+              <input type="checkbox" id="credito" formControlName="credito">
+              <label for="credito">Tarjeta de crédito</label>
+            </div>
+            <div class="checkbox-option">
+              <input type="checkbox" id="transferencia" formControlName="transferencia">
+              <label for="transferencia">Transferencia bancaria</label>
+            </div>
+            <div class="checkbox-option">
+              <input type="checkbox" id="otro" formControlName="otro">
+              <label for="otro">Otros</label>
+            </div>
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="comentariosPagos">Comentarios adicionales sobre aranceles o pagos (opcional):</label>
+          <textarea id="comentariosPagos" formControlName="comentariosPagos" rows="3" class="form-control"></textarea>
+        </div>
+      </div>
+  
+      <!-- 5. Resultados -->
+      <div class="section">
+        <h2>5. Resultados</h2>
+  
+        <div class="form-group">
+          <label>¿Recibió sus resultados en el tiempo estimado que le indicaron?</label>
+          <div class="radio-group">
+            <div class="radio-option">
+              <input type="radio" id="tiempoResultados1" formControlName="tiempoResultados" value="Antes de lo esperado">
+              <label for="tiempoResultados1">Antes de lo esperado</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="tiempoResultados2" formControlName="tiempoResultados" value="A tiempo">
+              <label for="tiempoResultados2">A tiempo</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="tiempoResultados3" formControlName="tiempoResultados" value="Con retraso">
+              <label for="tiempoResultados3">Con retraso</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="tiempoResultados4" formControlName="tiempoResultados" value="Aún no los recibí">
+              <label for="tiempoResultados4">Aún no los recibí</label>
+            </div>
+          </div>
+          <div *ngIf="submitted && surveyForm.get('tiempoResultados')?.errors?.['required']" class="validation-error">
+            Por favor, seleccione una opción
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label>¿La presentación de los resultados fue clara y fácil de entender?</label>
+          <div class="radio-group">
+            <div class="radio-option">
+              <input type="radio" id="claridadResultados1" formControlName="claridadResultados" value="Muy clara">
+              <label for="claridadResultados1">Muy clara</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="claridadResultados2" formControlName="claridadResultados" value="Aceptable">
+              <label for="claridadResultados2">Aceptable</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="claridadResultados3" formControlName="claridadResultados" value="Algo confusa">
+              <label for="claridadResultados3">Algo confusa</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="claridadResultados4" formControlName="claridadResultados" value="Muy confusa">
+              <label for="claridadResultados4">Muy confusa</label>
+            </div>
+          </div>
+          <div *ngIf="submitted && surveyForm.get('claridadResultados')?.errors?.['required']" class="validation-error">
+            Por favor, seleccione una opción
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label>¿Tuvo alguna dificultad para acceder a sus resultados?</label>
+          <div class="radio-group">
+            <div class="radio-option">
+              <input type="radio" id="dificultadAccesoResultados1" formControlName="dificultadAccesoResultados" value="Ninguna dificultad">
+              <label for="dificultadAccesoResultados1">Ninguna dificultad</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="dificultadAccesoResultados2" formControlName="dificultadAccesoResultados" value="Poca dificultad">
+              <label for="dificultadAccesoResultados2">Poca dificultad</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="dificultadAccesoResultados3" formControlName="dificultadAccesoResultados" value="Bastante dificultad">
+              <label for="dificultadAccesoResultados3">Bastante dificultad</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="dificultadAccesoResultados4" formControlName="dificultadAccesoResultados" value="Mucha dificultad">
+              <label for="dificultadAccesoResultados4">Mucha dificultad</label>
+            </div>
+          </div>
+          <div *ngIf="submitted && surveyForm.get('dificultadAccesoResultados')?.errors?.['required']" class="validation-error">
+            Por favor, seleccione una opción
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="comentariosResultados">Comentarios adicionales sobre los resultados (opcional):</label>
+          <textarea id="comentariosResultados" formControlName="comentariosResultados" rows="3" class="form-control"></textarea>
+        </div>
+      </div>
+  
+      <!-- 6. Evaluación General -->
+      <div class="section">
+        <h2>6. Evaluación General</h2>
+  
+        <div class="form-group">
+          <label>En general, ¿cómo calificaría su experiencia en nuestro laboratorio?</label>
+          <div class="radio-group">
+            <div class="radio-option">
+              <input type="radio" id="experienciaGeneral1" formControlName="experienciaGeneral" value="Excelente">
+              <label for="experienciaGeneral1">Excelente</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="experienciaGeneral2" formControlName="experienciaGeneral" value="Buena">
+              <label for="experienciaGeneral2">Buena</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="experienciaGeneral3" formControlName="experienciaGeneral" value="Regular">
+              <label for="experienciaGeneral3">Regular</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="experienciaGeneral4" formControlName="experienciaGeneral" value="Mala">
+              <label for="experienciaGeneral4">Mala</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="experienciaGeneral5" formControlName="experienciaGeneral" value="Muy mala">
+              <label for="experienciaGeneral5">Muy mala</label>
+            </div>
+          </div>
+          <div *ngIf="submitted && surveyForm.get('experienciaGeneral')?.errors?.['required']" class="validation-error">
+            Por favor, seleccione una opción
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label>¿Recomendaría nuestro laboratorio a familiares o amigos?</label>
+          <div class="radio-group">
+            <div class="radio-option">
+              <input type="radio" id="recomendacion1" formControlName="recomendacion" value="Definitivamente sí">
+              <label for="recomendacion1">Definitivamente sí</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="recomendacion2" formControlName="recomendacion" value="Probablemente sí">
+              <label for="recomendacion2">Probablemente sí</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="recomendacion3" formControlName="recomendacion" value="No estoy seguro/a">
+              <label for="recomendacion3">No estoy seguro/a</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="recomendacion4" formControlName="recomendacion" value="Probablemente no">
+              <label for="recomendacion4">Probablemente no</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="recomendacion5" formControlName="recomendacion" value="Definitivamente no">
+              <label for="recomendacion5">Definitivamente no</label>
+            </div>
+          </div>
+          <div *ngIf="submitted && surveyForm.get('recomendacion')?.errors?.['required']" class="validation-error">
+            Por favor, seleccione una opción
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="sugerencias">¿Qué podemos hacer para mejorar su experiencia en el futuro? (Opcional):</label>
+          <textarea id="sugerencias" formControlName="sugerencias" rows="3" class="form-control"></textarea>
+        </div>
+      </div>
+  
+      <div class="submit-section">
+        <button type="submit" class="btn-submit">Enviar Encuesta</button>
+      </div>
+    </form>
+    </div>
