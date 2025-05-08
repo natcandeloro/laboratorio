@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AdminComponent } from './admin/admin.component';
-import { AdminRoutingModule } from './admin/admin-routing.module';
+import { AdminRoutingModule } from './admin-routing.module';
 import { AngularFireModule } from '@angular/fire/compat';  
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';  
 import { AngularFireAuth } from '@angular/fire/compat/auth'; 
@@ -19,13 +19,18 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatInputModule} from '@angular/material/input';
 import { FormatDatePipe } from '../admin/format-date.pipe';
 import { SafeDatePipe } from './admin/safeDate.pipe';
+import { RouterModule, Routes } from '@angular/router';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { EstadisticasComponent } from './estadisticas/estadisticas.component';
+
 @NgModule({
   declarations: [
     AdminComponent,
     ModalComponent,
     ModalEditComponent,
     FormatDatePipe,
-    SafeDatePipe
+    SafeDatePipe,
+    EstadisticasComponent
   ],
   imports: [
     CommonModule,
@@ -38,7 +43,8 @@ import { SafeDatePipe } from './admin/safeDate.pipe';
     MatFormFieldModule,
     MatSelectModule,
     MatDatepickerModule,
-    MatInputModule
+    MatInputModule,
+    NgxChartsModule,
   ],
   providers: [ AngularFireAuth, AuthGuard, LoginService], 
 })

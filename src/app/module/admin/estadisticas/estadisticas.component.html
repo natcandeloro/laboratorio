@@ -1,0 +1,346 @@
+<div class="resultados-container">
+    <button class="btn-volver" (click)="volverAlPanel()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" style="margin-right: 8px;">
+          <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" fill="currentColor"/>
+        </svg>
+        VOLVER AL PANEL
+      </button>
+    <h1>Resultados de Encuestas</h1>
+  
+    <!-- Sección de carga y error -->
+    <div *ngIf="loading" class="loading">
+      <p>Cargando datos...</p>
+      <div class="spinner"></div>
+    </div>
+  
+    <div *ngIf="error" class="error-message">
+      <p>Lo sentimos, ocurrió un error al cargar los datos. Por favor, intente nuevamente más tarde.</p>
+    </div>
+  
+    <!-- Filtros -->
+    <div *ngIf="!loading && !error" class="filtros-section">
+      <h2>Filtros</h2>
+      <form [formGroup]="filterForm">
+        <div class="filtros-grid">
+          <div class="filtro-item">
+            <label for="fechaInicio">Fecha desde:</label>
+            <input type="date" id="fechaInicio" formControlName="fechaInicio" class="form-control">
+          </div>
+  
+          <div class="filtro-item">
+            <label for="fechaFin">Fecha hasta:</label>
+            <input type="date" id="fechaFin" formControlName="fechaFin" class="form-control">
+          </div>
+  
+          <div class="filtro-item">
+            <label for="departamento">Departamento:</label>
+            <select id="departamento" formControlName="departamento" class="form-control">
+              <option value="">Todos</option>
+              <option *ngFor="let depto of obtenerDepartamentos()" [value]="depto">{{ depto }}</option>
+            </select>
+          </div>
+  
+          <div class="filtro-item">
+            <label for="experienciaGeneral">Experiencia general:</label>
+            <select id="experienciaGeneral" formControlName="experienciaGeneral" class="form-control">
+              <option value="">Todas</option>
+              <option *ngFor="let exp of obtenerExperiencias()" [value]="exp">{{ exp }}</option>
+            </select>
+          </div>
+  
+          <div class="filtro-item">
+            <label for="motivoEleccion">Motivo de elección:</label>
+            <select id="motivoEleccion" formControlName="motivoEleccion" class="form-control">
+              <option value="">Todos</option>
+              <option *ngFor="let motivo of obtenerMotivosEleccion()" [value]="motivo">{{ motivo }}</option>
+            </select>
+          </div>
+  
+          <div class="filtro-item boton-container">
+            <button type="button" (click)="limpiarFiltros()" class="btn-limpiar">Limpiar filtros</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  
+    <!-- Resumen estadístico -->
+    <div *ngIf="!loading && !error" class="resumen-section">
+      <h2>Resumen de encuestas</h2>
+      <div class="resumen-cards">
+        <div class="card">
+          <h3>Total de encuestas</h3>
+          <div class="value">{{ encuestasFiltradas.length }}</div>
+        </div>
+  
+        <div class="card">
+          <h3>Recomendarían el servicio</h3>
+          <div class="value">{{ cantidadRecomendacion }}</div>
+          <div class="subvalue">{{ porcentajeRecomendacion | number:'1.0-0' }}%</div>
+        </div>
+  
+        <div class="card">
+          <h3>Experiencia excelente/buena</h3>
+          <div class="value">{{ cantidadExperienciaBuena }}</div>
+          <div class="subvalue">{{ porcentajeExperienciaBuena | number:'1.0-0' }}%</div>
+        </div>
+  
+        <div class="card">
+          <h3>Primera visita</h3>
+          <div class="value">{{ cantidadPrimeraVisita }}</div>
+          <div class="subvalue">{{ porcentajePrimeraVisita | number:'1.0-0' }}%</div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Sección de gráficos -->
+    <div *ngIf="!loading && !error && encuestasFiltradas.length > 0" class="graficos-section">
+      <h2>Gráficos</h2>
+      
+      <div class="graficos-grid">
+        <div class="grafico-card">
+          <h3>Experiencia general</h3>
+          <div class="grafico">
+            <ngx-charts-bar-vertical
+              [results]="datosGeneralExperiencia"
+              [xAxis]="showXAxis"
+              [yAxis]="showYAxis"
+              [showXAxisLabel]="showXAxisLabel"
+              [showYAxisLabel]="showYAxisLabel"
+              xAxisLabel="Calificación"
+              yAxisLabel="Cantidad"
+              [showDataLabel]="true">
+            </ngx-charts-bar-vertical>
+          </div>
+        </div>
+  
+        <div class="grafico-card">
+          <h3>Motivo de elección del laboratorio</h3>
+          <div class="grafico">
+            <ngx-charts-pie-chart
+              [results]="datosMotivosEleccion"
+              [legend]="showLegend"
+              [labels]="true"
+              [doughnut]="false"
+              [gradient]="gradient">
+            </ngx-charts-pie-chart>
+          </div>
+        </div>
+  
+        <div class="grafico-card">
+          <h3>Distribución por edad</h3>
+          <div class="grafico">
+            <ngx-charts-pie-chart
+              [results]="datosEdad"
+              [legend]="showLegend"
+              [labels]="true"
+              [doughnut]="false"
+              [gradient]="gradient">
+            </ngx-charts-pie-chart>
+          </div>
+        </div>
+  
+        <div class="grafico-card">
+          <h3>Recomendación</h3>
+          <div class="grafico">
+            <ngx-charts-bar-horizontal
+              [results]="datosRecomendacion"
+              [xAxis]="showXAxis"
+              [yAxis]="showYAxis"
+              [showXAxisLabel]="showXAxisLabel"
+              [showYAxisLabel]="showYAxisLabel"
+              xAxisLabel="Cantidad"
+              yAxisLabel="Respuesta"
+              [showDataLabel]="true">
+            </ngx-charts-bar-horizontal>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+<!-- Reemplaza la sección de la tabla en tu archivo HTML con este código -->
+
+<!-- Tabla de datos -->
+<div *ngIf="!loading && !error && encuestasFiltradas.length > 0" class="tabla-section">
+    <div class="tabla-header">
+      <h2>Datos detallados</h2>
+      <div class="botones-container">
+        <!-- Botón para alternar vista -->
+        <button (click)="toggleVistaCompleta()" class="btn-toggle-vista">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" style="margin-right: 8px;">
+            <path d="M3 4h18v2H3V4zm0 7h18v2H3v-2zm0 7h18v2H3v-2z" fill="currentColor"/>
+          </svg>
+          {{ vistaCompleta ? 'Vista Simplificada' : 'Vista Completa' }}
+        </button>
+        <!-- Botón de exportar -->
+        <button (click)="exportarExcel()" class="btn-exportar">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" style="margin-right: 8px;">
+            <path d="M23 1v20a1 1 0 0 1-1 1h-20a1 1 0 0 1-1-1V1a1 1 0 0 1 1-1h20a1 1 0 0 1 1 1zm-14.375 13.5h2.25v-3h2.25v-2.25h-2.25v-3h-2.25v3h-2.25v2.25h2.25v3zm6.65-5.25v-3h-4.5v3h4.5zm-4.5 2.25v3h4.5v-3h-4.5z" fill="#217346"/>
+          </svg>
+          Exportar a Excel
+        </button>
+      </div>
+    </div>
+    
+    <div class="tabla-container">
+        <table class="tabla-encuestas">
+          <thead>
+            <tr>
+              <!-- 1. Información General -->
+              <th colspan="5" class="seccion-header">Información General</th>
+              
+              <!-- 2. Atención al Público (solo en vista completa) -->
+              <th colspan="5" *ngIf="vistaCompleta" class="seccion-header">Atención al Público</th>
+              
+              <!-- 3. Comunicación con los Pacientes (solo en vista completa) -->
+              <th colspan="4" *ngIf="vistaCompleta" class="seccion-header">Comunicación con los Pacientes</th>
+              
+              <!-- 4. Aranceles y Medios de Pago (solo en vista completa) -->
+              <th colspan="5" *ngIf="vistaCompleta" class="seccion-header">Aranceles y Medios de Pago</th>
+              
+              <!-- 5. Resultados (solo en vista completa) -->
+              <th colspan="4" *ngIf="vistaCompleta" class="seccion-header">Resultados</th>
+              
+              <!-- 6. Evaluación General -->
+              <th colspan="3" class="seccion-header">Evaluación General</th>
+            </tr>
+            <tr>
+              <!-- 1. Información General -->
+              <th>Fecha</th>
+              <th>Edad</th>
+              <th>Departamento</th>
+              <th>Primera visita</th>
+              <th>Motivo de elección</th>
+              
+              <!-- 2. Atención al Público (solo en vista completa) -->
+              <th *ngIf="vistaCompleta">Amabilidad</th>
+              <th *ngIf="vistaCompleta">Tiempo de espera</th>
+              <th *ngIf="vistaCompleta">Resolución de dudas</th>
+              <th *ngIf="vistaCompleta">Limpieza y comodidad</th>
+              <th *ngIf="vistaCompleta">Comentarios</th>
+              
+              <!-- 3. Comunicación con los Pacientes (solo en vista completa) -->
+              <th *ngIf="vistaCompleta">Información procedimientos</th>
+              <th *ngIf="vistaCompleta">Información tiempos entrega</th>
+              <th *ngIf="vistaCompleta">Escucha y respeto</th>
+              <th *ngIf="vistaCompleta">Comentarios</th>
+              
+              <!-- 4. Aranceles y Medios de Pago (solo en vista completa) -->
+              <th *ngIf="vistaCompleta">Claridad costos</th>
+              <th *ngIf="vistaCompleta">Razonabilidad precios</th>
+              <th *ngIf="vistaCompleta">Dificultad pago</th>
+              <th *ngIf="vistaCompleta">Medios de pago</th>
+              <th *ngIf="vistaCompleta">Comentarios</th>
+              
+              <!-- 5. Resultados (solo en vista completa) -->
+              <th *ngIf="vistaCompleta">Tiempo resultados</th>
+              <th *ngIf="vistaCompleta">Claridad resultados</th>
+              <th *ngIf="vistaCompleta">Dificultad acceso resultados</th>
+              <th *ngIf="vistaCompleta">Comentarios</th>
+              
+              <!-- 6. Evaluación General -->
+              <th>Experiencia general</th>
+              <th>Recomendación</th>
+              <th>Sugerencias</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let encuesta of encuestasFiltradas">
+              <!-- 1. Información General -->
+              <td>{{ encuesta.fechaCreacion | date:'dd/MM/yyyy HH:mm' }}</td>
+              <td>{{ encuesta.edad }}</td>
+              <td>{{ encuesta.departamento }}</td>
+              <td>{{ encuesta.primeraVisita }}</td>
+              <td>{{ encuesta.motivoEleccion }}</td>
+              
+              <!-- 2. Atención al Público (solo en vista completa) -->
+              <td *ngIf="vistaCompleta">{{ encuesta['amabilidad'] }}</td>
+              <td *ngIf="vistaCompleta">{{ encuesta['tiempoEspera'] }}</td>
+              <td *ngIf="vistaCompleta">{{ encuesta['resolucionDudas'] }}</td>
+              <td *ngIf="vistaCompleta">{{ encuesta['limpiezaComodidad'] }}</td>
+              <td *ngIf="vistaCompleta" class="celda-comentario">
+                <button *ngIf="encuesta['comentariosAtencion']" 
+                        (click)="mostrarComentario('Comentarios sobre Atención', encuesta['comentariosAtencion'])" 
+                        class="btn-ver-comentario">
+                  Ver comentario
+                </button>
+              </td>
+              
+              <!-- 3. Comunicación con los Pacientes (solo en vista completa) -->
+              <td *ngIf="vistaCompleta">{{ encuesta['informacionProcedimientos'] }}</td>
+              <td *ngIf="vistaCompleta">{{ encuesta['informacionTiemposEntrega'] }}</td>
+              <td *ngIf="vistaCompleta">{{ encuesta['escuchaRespeto'] }}</td>
+              <td *ngIf="vistaCompleta" class="celda-comentario">
+                <button *ngIf="encuesta['comentariosComunicacion']" 
+                        (click)="mostrarComentario('Comentarios sobre Comunicación', encuesta['comentariosComunicacion'])" 
+                        class="btn-ver-comentario">
+                  Ver comentario
+                </button>
+              </td>
+              
+              <!-- 4. Aranceles y Medios de Pago (solo en vista completa) -->
+              <td *ngIf="vistaCompleta">{{ encuesta['claridadCostos'] }}</td>
+              <td *ngIf="vistaCompleta">{{ encuesta['razonabilidadPrecios'] }}</td>
+              <td *ngIf="vistaCompleta">{{ encuesta['dificultadPago'] }}</td>
+              <td *ngIf="vistaCompleta">{{ formatearMediosDePago(encuesta['mediosPago']) }}</td>
+              <td *ngIf="vistaCompleta" class="celda-comentario">
+                <button *ngIf="encuesta['comentariosPagos']" 
+                        (click)="mostrarComentario('Comentarios sobre Pagos', encuesta['comentariosPagos'])" 
+                        class="btn-ver-comentario">
+                  Ver comentario
+                </button>
+              </td>
+              
+              <!-- 5. Resultados (solo en vista completa) -->
+              <td *ngIf="vistaCompleta">{{ encuesta['tiempoResultados'] }}</td>
+              <td *ngIf="vistaCompleta">{{ encuesta['claridadResultados'] }}</td>
+              <td *ngIf="vistaCompleta">{{ encuesta['dificultadAccesoResultados'] }}</td>
+              <td *ngIf="vistaCompleta" class="celda-comentario">
+                <button *ngIf="encuesta['comentariosResultados']" 
+                        (click)="mostrarComentario('Comentarios sobre Resultados', encuesta['comentariosResultados'])" 
+                        class="btn-ver-comentario">
+                  Ver comentario
+                </button>
+              </td>
+              
+              <!-- 6. Evaluación General -->
+              <td [ngClass]="{
+                'excelente': encuesta.experienciaGeneral == 'Excelente',
+                'buena': encuesta.experienciaGeneral == 'Buena',
+                'regular': encuesta.experienciaGeneral == 'Regular',
+                'mala': encuesta.experienciaGeneral == 'Mala',
+                'muy-mala': encuesta.experienciaGeneral == 'Muy mala'
+              }">{{ encuesta.experienciaGeneral }}</td>
+              <td>{{ encuesta.recomendacion }}</td>
+              <td class="celda-comentario">
+                <button *ngIf="encuesta['sugerencias']" 
+                        (click)="mostrarComentario('Sugerencias', encuesta['sugerencias'])" 
+                        class="btn-ver-comentario">
+                  Ver sugerencia
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+  
+    <div *ngIf="encuestasFiltradas.length === 0" class="no-datos">
+      <p>No se encontraron encuestas con los filtros seleccionados.</p>
+    </div>
+  </div>
+
+
+  <div class="modal-comentario" [class.visible]="modalComentarioVisible">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>{{ tituloComentario }}</h3>
+        <button (click)="cerrarModal()" class="btn-cerrar">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p class="texto-comentario">{{ textoComentario }}</p>
+      </div>
+      <div class="modal-footer">
+        <button (click)="cerrarModal()" class="btn-cerrar-modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+  </div>

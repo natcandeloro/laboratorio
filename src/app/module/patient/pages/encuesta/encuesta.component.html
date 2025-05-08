@@ -78,6 +78,36 @@
             Por favor, seleccione una opción
           </div>
         </div>
+        <!-- Añadir este código HTML dentro de la sección "1. Información General" después de la pregunta sobre el departamento -->
+
+<div class="form-group">
+  <label>¿Por qué nos eligió?</label>
+  <div class="radio-group">
+    <div class="radio-option">
+      <input type="radio" id="motivoEleccion1" formControlName="motivoEleccion" value="Por cercanía">
+      <label for="motivoEleccion1">Por cercanía</label>
+    </div>
+    <div class="radio-option">
+      <input type="radio" id="motivoEleccion2" formControlName="motivoEleccion" value="Por precio de los análisis">
+      <label for="motivoEleccion2">Por precio de los análisis</label>
+    </div>
+    <div class="radio-option">
+      <input type="radio" id="motivoEleccion3" formControlName="motivoEleccion" value="Por la calidad del servicio">
+      <label for="motivoEleccion3">Por la calidad del servicio</label>
+    </div>
+    <div class="radio-option">
+      <input type="radio" id="motivoEleccion4" formControlName="motivoEleccion" value="Por recomendación">
+      <label for="motivoEleccion4">Por recomendación</label>
+    </div>
+    <div class="radio-option">
+      <input type="radio" id="motivoEleccion5" formControlName="motivoEleccion" value="Otro">
+      <label for="motivoEleccion5">Otro</label>
+    </div>
+  </div>
+  <div *ngIf="submitted && surveyForm.get('motivoEleccion')?.errors?.['required']" class="validation-error">
+    Por favor, seleccione una opción
+  </div>
+</div>
       </div>
   
       <!-- 2. Atención al Público -->

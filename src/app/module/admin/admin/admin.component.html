@@ -1,3 +1,5 @@
+
+<!-- Botón Cerrar Sesión (original) -->
 <button class="Btn" (click)="onClick()">
   <div class="sign">
     <svg viewBox="0 0 512 512">
@@ -6,9 +8,20 @@
       ></path>
     </svg>
   </div>
-
   <div class="text">Cerrar Sesión</div>
 </button>
+
+<!-- Botón Estadísticas que coincide con el diseño del botón Cerrar Sesión -->
+<button class="BtnStats" (click)="irAEstadisticas()">
+  <div class="sign">
+    <!-- Utilizamos un ícono más simple y claro para estadísticas -->
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="18" height="18">
+      <path d="M5 9.2h3V19H5V9.2zM10.6 5h2.8v14h-2.8V5zm5.6 8H19v6h-2.8v-6z" fill="white"/>
+    </svg>
+  </div>
+  <div class="text">Estadísticas</div>
+</button>
+
 
 <div class="container">
   <div class="diseno">

@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
-import { AdminComponent } from './admin.component';
+import { AdminComponent } from './admin/admin.component';
 import { RouterModule, Routes } from '@angular/router';
 //import { canActivate, redirectUnauthorizedTo } from '@angular/fire/auth-guard'; 
-import { GuardService } from '../service/guard.service';
+import { GuardService } from './service/guard.service';
+import { EstadisticasComponent } from './estadisticas/estadisticas.component';
 
 
 const routes: Routes = [ 
@@ -10,6 +11,11 @@ const routes: Routes = [
   {
     path: 'panel',
     component: AdminComponent,
+    canActivate: [GuardService]
+  },
+  {
+    path: 'estadisticas',
+    component: EstadisticasComponent,
     canActivate: [GuardService]
   },
   

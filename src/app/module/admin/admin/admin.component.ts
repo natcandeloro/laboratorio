@@ -244,6 +244,10 @@ export class AdminComponent implements OnInit, OnDestroy{
           });
       }
     }
+
+    irAEstadisticas(): void {
+      this.router.navigate(['/admin/estadisticas']);
+    }
     
     ngOnDestroy(): void {
       if (this.documentosSubscription) {

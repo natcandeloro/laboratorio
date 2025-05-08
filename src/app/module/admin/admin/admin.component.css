@@ -7,6 +7,83 @@
     align-items: center;
 }
 
+/* Estilos mejorados para el botón de estadísticas */
+.BtnStats {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 45px;
+    height: 45px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    position: absolute;
+    top: 1.5em;
+    right: 1.5em;
+    overflow: hidden;
+    transition-duration: 0.3s;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.199);
+    background-color: #1BC375; /* El mismo color verde que el botón Cerrar Sesión */
+    z-index: 1000; /* Para asegurar que esté por encima de otros elementos */
+  }
+  
+  /* Plus sign */
+  .BtnStats .sign {
+    width: 100%;
+    transition-duration: 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .BtnStats .sign svg {
+    width: 18px; /* Mismo tamaño que el ícono de Cerrar Sesión */
+  }
+  
+  .BtnStats .sign svg path {
+    fill: black; /* Mismo color negro para el ícono */
+  }
+  
+  /* Text */
+  .BtnStats .text {
+    position: absolute;
+    right: 0%;
+    width: 0%;
+    opacity: 0;
+    color: black; /* Mismo color negro para el texto */
+    font-size: 1.2em;
+    font-weight: 600;
+    transition-duration: 0.3s;
+  }
+  
+  /* Hover effect on button width */
+  .BtnStats:hover {
+    width: 145px;
+    border-radius: 40px;
+    transition-duration: 0.3s;
+  }
+  
+  .BtnStats:hover .sign {
+    width: 30%;
+    transition-duration: 0.3s;
+    padding-left: 20px;
+  }
+  
+  /* Hover effect button's text */
+  .BtnStats:hover .text {
+    opacity: 1;
+    width: 70%;
+    transition-duration: 0.3s;
+    padding-right: 10px;
+  }
+  
+  /* Button click effect */
+  .BtnStats:active {
+    transform: translate(2px, 2px);
+  }
+  
+
+
 /*BOTON CERRAR SESION*/ 
 .Btn {
     

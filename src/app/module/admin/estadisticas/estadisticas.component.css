@@ -1,0 +1,566 @@
+/* Estilos generales */
+.resultados-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  h1 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 30px;
+  }
+  
+  h2 {
+    color: #3498db;
+    border-bottom: 2px solid #ecf0f1;
+    padding-bottom: 10px;
+    margin-top: 30px;
+    margin-bottom: 20px;
+  }
+
+  /* Estilos para el botón volver al panel */
+.btn-volver {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    display: inline-flex;
+    align-items: center;
+    padding: 12px 24px;
+    border: 1px solid #4f4f4f;
+    border-radius: 4px;
+    transition: all 0.2s ease-in;
+    position: relative;
+    overflow: hidden;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    color: black;
+    z-index: 10;
+    background-color: white;
+  }
+  
+  .btn-volver:before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%) scaleY(1) scaleX(1.25);
+    top: 100%;
+    width: 140%;
+    height: 180%;
+    background-color: rgba(0, 0, 0, 0.05);
+    border-radius: 50%;
+    display: block;
+    transition: all 0.5s 0.1s cubic-bezier(0.55, 0, 0.1, 1);
+    z-index: -1;
+  }
+  
+  .btn-volver:after {
+    content: "";
+    position: absolute;
+    left: 55%;
+    transform: translateX(-50%) scaleY(1) scaleX(1.45);
+    top: 180%;
+    width: 160%;
+    height: 190%;
+    background-color: #2980B9; /* El mismo color verde que usan los otros botones */
+    border-radius: 50%;
+    display: block;
+    transition: all 0.5s 0.1s cubic-bezier(0.55, 0, 0.1, 1);
+    z-index: -1;
+  }
+  
+  .btn-volver:hover {
+    color: #ffffff;
+    border: 1px solid #2980B9;
+  }
+  
+  .btn-volver:hover:before {
+    top: -35%;
+    background-color: #2980B9;
+    transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
+  }
+  
+  .btn-volver:hover:after {
+    top: -45%;
+    background-color: #2980B9;
+    transform: translateX(-50%) scaleY(1.3) scaleX(0.8);
+  }
+  
+  .btn-volver:active {
+    transform: translate(2px, 2px);
+  }
+  
+  /* Añade el margen superior para el título h1 para evitar que se superponga con el botón */
+  .resultados-container h1 {
+    margin-top: 70px;
+  }
+  
+  /* Ajustes responsive */
+  @media (max-width: 700px) {
+    .btn-volver {
+      top: 10px;
+      left: 10px;
+      padding: 8px 16px;
+      font-size: 14px;
+    }
+    
+    .resultados-container h1 {
+      margin-top: 60px;
+      font-size: 24px;
+    }
+  }
+  
+  h3 {
+    color: #34495e;
+    margin-bottom: 15px;
+  }
+  
+  /* Estilos para carga y error */
+  .loading, .error-message {
+    text-align: center;
+    padding: 50px 0;
+  }
+  
+  .spinner {
+    margin: 20px auto;
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    border-top: 4px solid #3498db;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  
+  .error-message {
+    color: #e74c3c;
+    background-color: #fadbd8;
+    border-radius: 5px;
+    padding: 15px;
+    margin: 20px 0;
+  }
+  
+  /* Estilos para filtros */
+  .filtros-section {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .filtros-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+  }
+  
+  .filtro-item {
+    margin-bottom: 15px;
+  }
+  
+  .filtro-item label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #34495e;
+  }
+  
+  .form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  
+  .boton-container {
+    display: flex;
+    align-items: flex-end;
+  }
+  
+  .btn-limpiar, .btn-exportar {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+  }
+  
+  .btn-limpiar:hover, .btn-exportar:hover {
+    background-color: #2980b9;
+  }
+  
+  /* Estilos para resumen */
+  .resumen-section {
+    margin-bottom: 30px;
+  }
+  
+  .resumen-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+  
+  .card {
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card h3 {
+    margin-top: 0;
+    font-size: 16px;
+  }
+  
+  .value {
+    font-size: 36px;
+    font-weight: bold;
+    color: #3498db;
+    margin: 10px 0;
+  }
+  
+  .subvalue {
+    font-size: 14px;
+    color: #7f8c8d;
+  }
+  
+  /* Estilos para gráficos */
+  .graficos-section {
+    margin-bottom: 30px;
+  }
+  
+  .graficos-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  
+  .grafico-card {
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    height: 350px;
+  }
+  
+  .grafico {
+    height: 280px;
+  }
+  
+  /* Estilos para tabla */
+  .tabla-section {
+    margin-bottom: 30px;
+  }
+  
+  .tabla-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+  
+  .tabla-container {
+    overflow-x: auto;
+  }
+  
+  .tabla-encuestas {
+    width: 100%;
+    border-collapse: collapse;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .tabla-encuestas th {
+    background-color: #3498db;
+    color: white;
+    padding: 12px 15px;
+    text-align: left;
+    font-weight: bold;
+  }
+  
+  .tabla-encuestas td {
+    padding: 10px 15px;
+    border-bottom: 1px solid #ecf0f1;
+  }
+  
+  .tabla-encuestas tbody tr:hover {
+    background-color: #f5f5f5;
+  }
+  
+  /* Colores para experiencia */
+  .excelente {
+    color: #27ae60;
+    font-weight: bold;
+  }
+
+  /* Estilos para los botones */
+.botones-container {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .btn-toggle-vista {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    background-color: white;
+    color: #1BC375;
+    border: 1px solid #1BC375;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-toggle-vista:hover {
+    background-color: #1BC375;
+    color: white;
+  }
+  
+  .btn-toggle-vista:hover svg path {
+    fill: white;
+  }
+  
+  .btn-toggle-vista:active {
+    transform: translateY(1px);
+  }
+  
+  .btn-exportar {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    background-color: white;
+    color: #217346; /* Color verde de Excel */
+    border: 1px solid #217346;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .btn-exportar:hover {
+    background-color: #217346;
+    color: white;
+  }
+  
+  .btn-exportar:hover svg path {
+    fill: white;
+  }
+  
+  .btn-exportar:active {
+    transform: translateY(1px);
+  }
+  
+  /* Estilos para la tabla */
+  .tabla-container {
+    overflow-x: auto;
+    max-width: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+  }
+
+  /* Estilos para el botón de ver comentario */
+.celda-comentario {
+    text-align: center;
+  }
+  
+  .btn-ver-comentario {
+    background-color: #1BC375;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .btn-ver-comentario:hover {
+    background-color: #17a064;
+  }
+  
+  /* Estilos para el modal */
+  .modal-comentario {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modal-comentario.visible {
+    display: flex;
+  }
+  
+  .modal-content {
+    background-color: white;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 600px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    animation: slideIn 0.3s ease;
+  }
+  
+  @keyframes slideIn {
+    from {
+      transform: translateY(-50px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid #e0e0e0;
+  }
+  
+  .modal-header h3 {
+    margin: 0;
+    color: #333;
+  }
+  
+  .btn-cerrar {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #999;
+  }
+  
+  .btn-cerrar:hover {
+    color: #333;
+  }
+  
+  .modal-body {
+    padding: 20px;
+    max-height: 400px;
+    overflow-y: auto;
+  }
+  
+  .texto-comentario {
+    line-height: 1.6;
+    white-space: pre-wrap;
+  }
+  
+  .modal-footer {
+    padding: 15px 20px;
+    text-align: right;
+    border-top: 1px solid #e0e0e0;
+  }
+  
+  .btn-cerrar-modal {
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+  
+  .btn-cerrar-modal:hover {
+    background-color: #e0e0e0;
+  }
+  
+  /* Estilos para celdas con comentarios */
+  .comentario-cell {
+    white-space: normal !important;
+    min-width: 200px;
+    max-width: 300px !important;
+    word-break: break-word;
+  }
+  
+  .tabla-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+  
+  .buena {
+    color: #2ecc71;
+  }
+  
+  .regular {
+    color: #f39c12;
+  }
+  
+  .mala {
+    color: #e74c3c;
+  }
+  
+  .muy-mala {
+    color: #c0392b;
+    font-weight: bold;
+  }
+  
+  .no-datos {
+    text-align: center;
+    padding: 50px 0;
+    color: #7f8c8d;
+  }
+  
+  /* Responsive */
+  @media (max-width: 1000px) {
+    .filtros-grid,
+    .resumen-cards,
+    .graficos-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .filtros-grid,
+    .resumen-cards,
+    .graficos-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .resultados-container {
+      padding: 10px;
+    }
+    
+    .tabla-encuestas {
+      font-size: 14px;
+    }
+    
+    .tabla-encuestas th,
+    .tabla-encuestas td {
+      padding: 8px;
+    }
+    
+    .card {
+      padding: 15px;
+    }
+    
+    .value {
+      font-size: 28px;
+    }
+  }

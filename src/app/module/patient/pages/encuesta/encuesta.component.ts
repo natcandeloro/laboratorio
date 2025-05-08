@@ -40,6 +40,7 @@ export class EncuestaComponent {
       primeraVisita: ['', Validators.required],
       departamento: ['', Validators.required],
       otroDepartamento: [''],
+      motivoEleccion: ['', Validators.required], 
 
       // 2. Atención al Público
       amabilidad: ['', Validators.required],
